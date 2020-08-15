@@ -1,6 +1,12 @@
-require('dotenv').config();
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
+})
 
-module.exports = {
+const dotenv = require('dotenv')
+dotenv.config()
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
     CLOUDINARY_URL: process.env.CLOUDINARY_URL,
@@ -10,4 +16,4 @@ module.exports = {
     EMAIL_FROM: process.env.EMAIL_FROM,
     SESSION_SECRET: process.env.SESSION_SECRET,
   },
-};
+})

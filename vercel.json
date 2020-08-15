@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-mongodb-app",
+  "name": "ruru-herbarium",
   "version": 2,
   "build": {
     "env": {

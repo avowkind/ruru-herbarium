@@ -8,19 +8,9 @@
 
 A full-fledged app made with [**Next.js**](https://github.com/zeit/next.js/) and [**MongoDB**](https://www.mongodb.com/)
 
-:rocket: [Check out the demo](https://nextjs-mongodb.now.sh/)
-
 </div>
 
 <h2 align="center">Features</h2>
-
-<p align="center">:heavy_check_mark: No Express.js :heavy_check_mark: Serverless ready :heavy_check_mark: API Routes :heavy_check_mark: Middleware</p>
-
-<h3 align="center">:lock: Authentication</h3>
-
-<div align="center">
-
-<sup>*without passportjs*: [`a1747b7`](https://github.com/hoangvvo/nextjs-mongodb-app/commit/c36c5826f691032803760b5404ccec3446575504) *with passportjs*: `master`</sup>
 
 - [x] Session
 - [x] Sign up/Sign in/Sign out
@@ -62,19 +52,6 @@ A full-fledged app made with [**Next.js**](https://github.com/zeit/next.js/) and
   
 </div>
 
-<h2 align="center">Guide</h2>
-
-Before getting started, I welcome you to read this [issue](https://github.com/hoangvvo/nextjs-mongodb-app/issues/13) on production readiness. The goal is not to use this project as it, but to implement your own version.
-
-This project accompanies the following posts:
-
-- [How I build a full-fledged app with Next.js and MongoDB Part 1: User authentication](https://hoangvvo.com/blog/full-fledged-app-with-next-js-and-mongodb-part-1/)
-- [How I build a full-fledged app with Next.js and MongoDB Part 2: User profile and Profile Picture](https://hoangvvo.com/blog/full-fledged-app-with-next-js-and-mongodb-part-2/)
-- [How I build a full-fledged app with Next.js and MongoDB Part 3: Email Verification, Password Reset/Change](https://hoangvvo.com/blog/full-fledged-app-with-next-js-and-mongodb-part-3/)
-
-Also check them out on [dev.to](https://dev.to/hoangvvo).
-
-The project is designed to **as simple as possible** for the learning purpose. Due to its simplicity, aspects such as **security** must be reconsidered before being **pushed to production**.
 
 <h3 align="center">Dependencies</h3>
 
