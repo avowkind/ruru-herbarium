@@ -29,13 +29,13 @@ handler.post(async (req, res) => {
     return res.status(401).send('unauthenticated');
   }
 
-  const { content } = req.body;
+  const { posting } = req.body;
 
-  if (!content) return res.status(400).send('You must write something');
+  if (!posting) return res.status(400).send('You must write something');
 
   const post = {
     _id: nanoid(),
-    content,
+    posting,
     createdAt: new Date(),
     creatorId: req.user._id,
   };

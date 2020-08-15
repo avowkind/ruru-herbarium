@@ -8,14 +8,23 @@ The goal is to track all the plants and trees we put into our garden. Their spec
 ## Species
 The Species record represents a type of plant
 
-  * Species Latin Name
-  * Common name
+  * common name
+  * alt common names - comma separated list
+  * scientific Name  (genus, species, variety)
+  * family (full taxonomy)
+  * subtribe
+  * description
   * Type ( tree, bush, etc)
-  * Native NZ ( native, introduced, exotic )
+  * Native NZ ( native, heirloom, introduced, exotic )
   * Soil Types []
-  * Uses []
+  * uses
+    * other Uses []
+    * medicinal uses []
+    * wood uses
   * Sun types []
-  * Pollination
+  * Pollination 
+    * [ insect, wind, flower]
+    * self fertile or companions
   * Keywords
 
 Some of these fields accept rich text in markdown or pasted html. 

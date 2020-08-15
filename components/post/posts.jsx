@@ -3,28 +3,14 @@ import { useSWRInfinite } from 'swr';
 import Link from 'next/link';
 import { useUser } from '../../lib/hooks';
 import fetcher from '../../lib/fetch';
+import ReactMarkdown from 'react-markdown'
 
 function Post({ post }) {
   const user = useUser(post.creatorId);
   return (
     <>
-      <style jsx>
-        {`
-          div {
-            box-shadow: 0 5px 10px rgba(0,0,0,0.12);
-            padding: 1.5rem;
-            margin-bottom: 0.5rem;
-            transition: box-shadow 0.2s ease 0s;
-          }
-          div:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-          }
-          small {
-            color: #777;
-          }
-        `}
-      </style>
-      <div>
+      <div className='card'>
+        <div className='flex-shrink-0 m-1 w-32'>
         {user && (
           <Link href="/user/[userId]" as={`/user/${user._id}`}>
             <a style={{ display: 'inline-flex', alignItems: 'center' }}>
@@ -33,10 +19,14 @@ function Post({ post }) {
             </a>
           </Link>
         )}
+        </div>
+        <div className='mx-1 mt-1'>
         <p>
-          {post.content}
+        <ReactMarkdown source={post.posting}></ReactMarkdown>
         </p>
         <small>{new Date(post.createdAt).toLocaleString()}</small>
+
+        </div>
       </div>
     </>
   );

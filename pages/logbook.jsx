@@ -8,7 +8,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <h1>Log Book</h1>
+      <h1>Journal</h1>
       <div>
         <PostEditor />
         <Posts />

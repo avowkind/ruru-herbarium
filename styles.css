@@ -23,7 +23,9 @@ ul {
 p {
   @apply mb-1
 }
-
+code {
+  @apply block p-2 bg-gray-100 border-gray-900;
+}
 article a {
   @apply text-blue-600 underline;
 }
@@ -40,6 +42,11 @@ article a {
 .radio-bar {
   @apply mx-1;
 }
+
+.card {
+  @apply max-w-full flex my-4 bg-white rounded-lg shadow-md 
+}
+
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;

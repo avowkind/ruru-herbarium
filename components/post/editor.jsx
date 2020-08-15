@@ -14,13 +14,13 @@ export default function PostEditor() {
     );
   }
 
-  async function hanldeSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const body = {
-      content: e.currentTarget.content.value,
+      posting: e.currentTarget.posting.value,
     };
-    if (!e.currentTarget.content.value) return;
-    e.currentTarget.content.value = '';
+    if (!e.currentTarget.posting.value) return;
+    e.currentTarget.posting.value = '';
     const res = await fetch('/api/posts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -37,15 +37,24 @@ export default function PostEditor() {
       <p style={{ color: '#0070f3', textAlign: 'center' }}>
         {msg}
       </p>
-      <form onSubmit={hanldeSubmit} style={{ flexDirection: 'row' }} autoComplete="off">
-        <label htmlFor="name">
-          <input
-            name="content"
-            type="text"
-            placeholder="What did you to today?"
+      <form 
+        onSubmit={handleSubmit} 
+        className='mb-4' 
+        autoComplete="off">
+        <label htmlFor="posting">
+          <textarea
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            name="posting"
+            rows="5" 
+            placeholder="What did you do today?"
           />
         </label>
-        <button type="submit" style={{ marginLeft: '0.5rem' }}>Post</button>
+        <button 
+          type="submit" style={{ marginLeft: '0.5rem' }}
+          className="btn-blue my-2"
+          >
+          Post
+        </button>
       </form>
     </>
   );
