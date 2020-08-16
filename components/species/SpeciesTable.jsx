@@ -6,8 +6,8 @@ const SpeciesRow = ({ species }) => {
  
   return (
     <Link href={`/species/${species.name}`}>
-      <tr className='hover:bg-grey-200'>
-        <td>{species.name}</td>
+      <tr className='hover:bg-grey-400'>
+        <td className='hover:bg-grey-200'><a>{species.name}</a></td>
         <td>{species.scientificName}</td>
         <td>{species.otherCommonNames}</td>
         <td><Tags tags={species.tags} /></td>
