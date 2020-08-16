@@ -34,6 +34,7 @@ function Header ({ user, mutate }) {
           <MenuItem href='/'>
               Home
           </MenuItem>
+          <MenuItem href='/species'>Species</MenuItem>
           <MenuItem href='/logbook'>Log Book</MenuItem>
           <MenuItem href='/about'>About</MenuItem>
           

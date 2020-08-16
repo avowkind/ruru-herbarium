@@ -30,6 +30,18 @@ article a {
   @apply text-blue-600 underline;
 }
 
+td, th {
+  @apply border px-4 py-2 text-left;
+}
+
+label {
+  @apply block text-gray-700 text-sm font-bold mr-2 mt-1;
+}
+input[type=text],
+textarea  {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight mb-2 ;
+}
+
 .btn-blue {
   @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
 }
@@ -39,6 +51,11 @@ article a {
 .panel-error {
   @apply bg-red-700 text-white font-bold py-2 px-4 rounded;
 }
+
+.panel {
+  @apply max-w-full px-2 py-2 my-2 bg-white rounded-lg shadow-md;
+}
+
 .radio-bar {
   @apply mx-1;
 }
