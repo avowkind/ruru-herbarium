@@ -8,7 +8,7 @@ const Page = () => {
     <>
       <button
         onClick={() => setNewSpecies(true)}
-        className='btn-blue mt-2'
+        className='btn-primary mt-2'
       >
         New Species
       </button>

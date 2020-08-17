@@ -36,40 +36,42 @@ const SignupPage = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <div>
-        <h2>Sign up</h2>
+      <div className='panel max-w-md '>
+        <h2 className='border-b-2'>Sign up</h2>
         <form onSubmit={handleSubmit}>
           {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
           <label htmlFor="name">
+            name
+          </label>
             <input
               id="name"
               name="name"
               type="text"
               placeholder="Your name"
             />
-          </label>
           <label htmlFor="email">
+            email
+          </label>
+
             <input
               id="email"
               name="email"
               type="email"
               placeholder="Email address"
             />
-          </label>
           <label htmlFor="password">
+            password
+          </label>
+
             <input
               id="password"
               name="password"
               type="password"
               placeholder="Create a password"
             />
-          </label>
-          <button type="submit">Sign up</button>
+          <button className='btn-primary' type="submit">Sign up</button>
         </form>
-        <p style={{ color: '#777', textAlign: 'center' }}>
-          Note: The database is public. For your privacy,
-          please avoid using your personal, work email.
-        </p>
+        
       </div>
     </>
   );

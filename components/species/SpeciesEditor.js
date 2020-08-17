@@ -34,7 +34,7 @@ export default function SpeciesEditor({onSave}) {
         {msg}
       </p>
       <form onSubmit={handleSubmit(onSubmit)}
-        className='max-w-full px-2 py-2 my-2 bg-white rounded-lg shadow-md ' 
+        className='panel' 
         autoComplete="off">
         <h1>New Species</h1>
         <label htmlFor="name">Name</label>
@@ -96,7 +96,7 @@ export default function SpeciesEditor({onSave}) {
 
         <button 
           type="submit"
-          className="block btn-blue my-2"
+          className="block btn-primary my-2"
           >
           Save
         </button>

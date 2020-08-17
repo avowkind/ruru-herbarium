@@ -51,7 +51,7 @@ export default function PostEditor() {
         </label>
         <button 
           type="submit" style={{ marginLeft: '0.5rem' }}
-          className="btn-blue my-2"
+          className="btn-primary my-2"
           >
           Post
         </button>

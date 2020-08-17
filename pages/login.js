@@ -33,35 +33,37 @@ const LoginPage = () => {
   }
 
   return (
-    <>
+    <div className='panel max-w-md'>
       <Head>
-        <title>Sign in</title>
+        <title >Sign in</title>
       </Head>
-      <h2>Sign in</h2>
+      <h2 className='border-b-2'>Sign in</h2>
       <form onSubmit={onSubmit}>
         {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
-        <label htmlFor="email">
-          <input
+        <label htmlFor="email">email</label>
+        <input
             id="email"
             type="email"
             name="email"
             placeholder="Email address"
           />
-        </label>
         <label htmlFor="password">
-          <input
+          password
+        </label>
+        <input
             id="password"
             type="password"
             name="password"
             placeholder="Password"
           />
-        </label>
-        <button type="submit">Sign in</button>
+          <div>
+        <button className='btn-primary mt-2 mr-2' type="submit">Sign in</button>
         <Link href="/forget-password">
           <a>Forget password</a>
         </Link>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
 
