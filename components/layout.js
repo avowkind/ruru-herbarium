@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
           content="https://repository-images.githubusercontent.com/201392697/5d392300-eef3-11e9-8e20-53310193fbfd"
         />
       </Head>
-      <div className="flex flex-col min-h-screen "> 
+      <div className="flex flex-col min-h-screen"> 
       <Header user={user} mutate={mutate} />
       <main className='container mx-auto flex-grow'>{children}</main>
       <Footer />

@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import fetcher from '../../lib/fetch';
-import SpeciesTable from '../../components/species/SpeciesTable'
+import SpeciesTable from './SpeciesTable'
 import config from '../../lib/config'
 
 export default function SpeciesView() {
