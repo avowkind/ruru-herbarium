@@ -3,9 +3,9 @@
   "version": 2,
   "build": {
     "env": {
-      "DB_NAME": "nextjsmongodbapp",
-      "EMAIL_FROM": "averyniceguy@nextjs-mongodb.now.sh",
-      "WEB_URI": "https://nextjs-mongodb.now.sh"
+      "DB_NAME": "ruruherbarium",
+      "EMAIL_FROM": "andrew@groat.nz",
+      "WEB_URI": "https://ruru-herbarium.vercel.app/"
     }
   }
 }
