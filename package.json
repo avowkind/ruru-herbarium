@@ -25,12 +25,14 @@
     "@next/mdx": "^9.5.2",
     "@sendgrid/mail": "^7.0.0",
     "@tailwindcss/typography": "^0.2.0",
+    "@yaireo/tagify": "^3.17.7",
     "autoprefixer": "^9.8.6",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.20.0",
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
     "express-session": "^1.17.1",
+    "limax": "^2.1.0",
     "mongodb": "^3.5.5",
     "multer": "^1.4.2",
     "nanoid": "^3.1.5",
@@ -43,10 +45,12 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.4.0",
     "react-markdown": "^4.3.1",
-    "standard": "^14.3.4",
+    "reactable": "^1.1.0",
     "swr": "^0.3.0",
     "tailwindcss": "^1.6.2",
     "validator": "^13.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "standard": "^14.3.4"
+  }
 }

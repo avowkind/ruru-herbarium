@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCurrentUser } from '../lib/hooks';
 
+
 const IndexPage = () => {
   const [user] = useCurrentUser();
 
@@ -8,7 +9,7 @@ const IndexPage = () => {
     <>
       <h1>Home</h1>
       <div>
-      
+     
       </div>
     </>
   );

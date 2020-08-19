@@ -1,6 +1,9 @@
 import React from 'react';
 import Tags from './tags'
 import Link from 'next/link'
+import Reactable from 'reactable'
+
+const Table = Reactable.Table;
 
 const SpeciesRow = ({ species }) => {
  
@@ -16,7 +19,7 @@ const SpeciesRow = ({ species }) => {
   );
 }
 
-const SpeciesTable = ({species}) => {
+const SpeciesTable1 = ({species}) => {
   return (
     <div className='panel'>
     <table className='table-auto'>
@@ -33,4 +36,27 @@ const SpeciesTable = ({species}) => {
     </div>
   )
 }
+
+const SpeciesTable = ({species}) => {
+  return (
+    <div className='panel'>
+    <Table 
+      className="table" 
+      id="SpeciesTable" 
+      data={species}
+      columns={[ 
+        { key: 'name', label: 'Common Name' }, // common english name
+        { key: 'otherCommonNames', label: 'Other names' }, // maori name 
+        { key: 'scientificName', label: 'Scientific name' }, // genus, species, varietal
+        ]}
+      sortable={[
+        'name',
+        'scientificName'
+      ]}
+      defaultSort={{column: 'name', direction: 'desc'}}
+      filterable={['name', 'otherCommonNames', 'scientificName']}
+    />  
+    </div>
+  )
+} 
 export default SpeciesTable
