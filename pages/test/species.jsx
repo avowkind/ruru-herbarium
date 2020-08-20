@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import SpeciesTable from '../../components/species/SpeciesTable'
 import SpeciesDetail from '../../components/species/SpeciesDetail'
 import SpeciesEditor from '../../components/species/SpeciesEditor'
@@ -9,8 +9,8 @@ const species = [
     otherCommonNames: 'Small Leaf Mountain Lilac, Wortleaf Lilac',
     scientificName: 'Ceanothus papillosus var. roweanus',
     taxon: {
-      Kingdom: 	'Plantae',
-      Family: 	'Oleaceae'
+      Kingdom: 'Plantae',
+      Family: 'Oleaceae'
     },
     description: `The olive, known by the botanical name Olea europaea, meaning "European olive", 
 is a species of small tree in the family Oleaceae, 
@@ -25,7 +25,7 @@ The olive's fruit, also called the olive, is of major agricultural importance in
 `,
     habit: 'shrub', // ( tree, bush, etc)
     native: 'introduced', //  ( native, heirloom, introduced, exotic )
-    soils: [], // 
+    soils: [], //
     uses: {
       medicinal: '',
       wood: '',
@@ -34,25 +34,25 @@ The olive's fruit, also called the olive, is of major agricultural importance in
     imageUrl: 'https://garden.org/pics/2015-03-07/Henhouse/4aadc0-300.jpg',
     sun: ['Full Sun', 'Partial Shade'],
     pollination: [],
-    tags: ['flower', 'evergreen' ],
-    lifeCycle: 	'Perennial',
+    tags: ['flower', 'evergreen'],
+    lifeCycle: 'Perennial',
     size: {
       height: '6 feet',
       spread: '8 feet'
     },
-    Leaves: 	'Evergreen',
-    flowers: 	'Showy',
+    Leaves: 'Evergreen',
+    flowers: 'Showy',
     flowerColour: 'Blue',
-    flowerTime: 	['Spring','Late spring','Early summer'],
-    Resistances: 	'Drought tolerant'
+    flowerTime: ['Spring', 'Late spring', 'Early summer'],
+    Resistances: 'Drought tolerant'
   },
   {
     name: 'Olive',
     otherCommonNames: '',
     scientificName: 'Olea europaea',
     taxon: {
-      Kingdom: 	'Plantae',
-      Family: 	'Oleaceae'
+      Kingdom: 'Plantae',
+      Family: 'Oleaceae'
     },
     description: `The olive, known by the botanical name Olea europaea, meaning "European olive", 
 is a species of small tree in the family Oleaceae, 
@@ -67,7 +67,7 @@ The olive's fruit, also called the olive, is of major agricultural importance in
 `,
     habit: 'tree', // ( tree, bush, etc)
     native: 'introduced', //  ( native, heirloom, introduced, exotic )
-    soils: [], // 
+    soils: [], //
     uses: {
       medicinal: '',
       wood: '',
@@ -81,7 +81,6 @@ The olive's fruit, also called the olive, is of major agricultural importance in
 ]
 
 const Page = () => {
-
   return (
     <>
       <div>
@@ -91,7 +90,7 @@ const Page = () => {
         <SpeciesDetail species={species[1]} />
       </div>
     </>
-  );
+  )
 };
 
-export default Page;
+export default Page

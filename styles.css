@@ -32,7 +32,6 @@ main a {
 
 th {
   @apply bg-blue-100 ;
-
 }
 tr:hover,
 tr:nth-child(even):hover {
@@ -46,16 +45,33 @@ td, th {
   @apply border px-4 py-2 text-left;
 }
 
-label {
+
+.tight td, 
+.tight th {
+    @apply border px-1 py-1 text-left;
+}
+
+  label {
   @apply block text-gray-700 text-sm font-bold mr-2 mt-1;
 }
 input[type=text],
+input[type=search],
 input[type=email],
 input[type=password],
 textarea  {
   @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight mb-2 ;
 }
 
+// Definition Lists
+dl {
+  @apply mt-4;
+}
+dt {
+  @apply text-right font-bold  max-w-xs;
+}
+dd {
+  @apply  ml-5 mb-1 max-w-xs ;
+}
 .btn-primary {
   @apply bg-blue-500 text-white font-bold py-2 px-4 mx-2 rounded;
 }

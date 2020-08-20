@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useCurrentUser } from '../../lib/hooks';
-import { useForm } from "react-hook-form";
-import Tags from "@yaireo/tagify/dist/react.tagify" // React-wrapper file
+import React, { useState } from 'react'
+import { useCurrentUser } from '../../lib/hooks'
+import { useForm } from 'react-hook-form'
+import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import slug from 'limax'
 import useSWR, { mutate } from 'swr'
 
 export const blankSpecies = [
   {
     name: '', // common english name
-    otherCommonNames: '', // maori name 
+    otherCommonNames: '', // maori name
     scientificName: '', // genus, species, varietal
     taxon: '', // family, group etc.
     description: '', // longer description
@@ -18,7 +18,7 @@ export const blankSpecies = [
     material_users: '',
     other_uses: '',
     // option lists
-    soils: [], // 
+    soils: [], //
     sun: [],
     pollination: [],
     tags: [],
@@ -26,15 +26,15 @@ export const blankSpecies = [
   }
 ]
 
-export default function SpeciesEditor({species, onSave}) {
+export default function SpeciesEditor ({ species, onSave }) {
   console.log('species editor', species)
-  const [user] = useCurrentUser();
-  const [msg, setMsg] = useState(null);
+  const [user] = useCurrentUser()
+  const [msg, setMsg] = useState(null)
   const { register, handleSubmit, watch, errors } = useForm(
-    { 
+    {
       defaultValues: species || blankSpecies
     })
-  
+
   if (!user) {
     return (
       <div style={{ color: '#555', textAlign: 'center' }}>
@@ -43,25 +43,25 @@ export default function SpeciesEditor({species, onSave}) {
     )
   }
   const onSubmit = async data => {
-    let res;
+    let res
     data.slug = slug(data.name)
     console.log('onSubmit', data)
     if (species) {
       res = await fetch(`/api/species/${data.slug}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( { _id: species._id, ...data }),
-      });
+        body: JSON.stringify({ _id: species._id, ...data })
+      })
     } else {
       res = await fetch('/api/species', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+        body: JSON.stringify(data)
+      })
     }
     if (res.ok) {
-      setMsg('New species added');
-      setTimeout(() => setMsg(null), 5000);
+      setMsg('New species added')
+      setTimeout(() => setMsg(null), 5000)
       onSave()
     }
   }
@@ -71,54 +71,53 @@ export default function SpeciesEditor({species, onSave}) {
       <p style={{ color: '#0070f3', textAlign: 'center' }}>
         {msg}
       </p>
-      <form 
+      <form
         onSubmit={handleSubmit(onSubmit)}
-        className='panel' 
-        autoComplete="off"
+        className='panel'
+        autoComplete='off'
       >
         <h1>Edit Species</h1>
-        <label htmlFor="name">Name</label>
-        <input name="name" type="text" className='max-w-sm' placeholder="Olive" ref={register({ required: true })} />
+        <label htmlFor='name'>Name</label>
+        <input name='name' type='text' className='max-w-sm' placeholder='Olive' ref={register({ required: true })} />
         {errors.name && <span>Gotta have a name</span>}
-        <label htmlFor="otherCommonNames">Other Common Names</label>
-        <input name="otherCommonNames" type="text" className='max-w-md' placeholder="e.g maori name" ref={register} />
+        <label htmlFor='otherCommonNames'>Other Common Names</label>
+        <input name='otherCommonNames' type='text' className='max-w-md' placeholder='e.g maori name' ref={register} />
 
-        <label htmlFor="scientificName">Scientific Name</label>
-        <input name="scientificName" type="text" className='max-w-md' placeholder="Olea europaea" ref={register} />
+        <label htmlFor='scientificName'>Scientific Name</label>
+        <input name='scientificName' type='text' className='max-w-md' placeholder='Olea europaea' ref={register} />
 
-        <label htmlFor="taxon">Family or group</label>
-        <input name="taxon" type="text" className='max-w-md' placeholder="Olea europaea" ref={register} />
-        
-        <label htmlFor="description">Description</label>
+        <label htmlFor='taxon'>Family or group</label>
+        <input name='taxon' type='text' className='max-w-md' placeholder='Olea europaea' ref={register} />
+
+        <label htmlFor='description'>Description</label>
         <textarea
-          name="description"
-          rows="15" 
-          placeholder="describe the species"
+          name='description'
+          rows='15'
+          placeholder='describe the species'
           ref={register}
         />
 
-
-        <label htmlFor="habit">Habit</label>
-        <div className="inline-block relative w-64">
-          <select 
-            name='habit' 
-            className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        <label htmlFor='habit'>Habit</label>
+        <div className='inline-block relative w-64'>
+          <select
+            name='habit'
+            className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'
             ref={register}
           >
-            <option>Tree</option>
+            <option>Erect</option>
             <option>Shrub</option>
             <option>Bush</option>
           </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
+            <svg className='fill-current h-4 w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' /></svg>
           </div>
         </div>
 
-        <label htmlFor="native">Native</label>
-        <div className="inline-block relative w-64">
-          <select 
-            name='native' 
-            className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        <label htmlFor='native'>Native</label>
+        <div className='inline-block relative w-64'>
+          <select
+            name='native'
+            className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'
             ref={register}
           >
             <option>native</option>
@@ -126,21 +125,41 @@ export default function SpeciesEditor({species, onSave}) {
             <option>Introduced</option>
             <option>Exotic</option>
           </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
+            <svg className='fill-current h-4 w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' /></svg>
           </div>
         </div>
+
+        <label htmlFor='flowers'>Flowers</label>
+        <input name='flowers' type='text' className='max-w-md' placeholder='blue clusters' ref={register} />
+        <label htmlFor='flower_time'>Flowering Time</label>
+        <input name='flower_time' type='text' className='max-w-md' placeholder='Spring, Summer' ref={register} />
+
+        <label htmlFor='fruit'>Fruit</label>
+        <input name='fruit' type='text' className='max-w-md' placeholder='berries' ref={register} />
+        <label htmlFor='fruit_time'>Fruit Time</label>
+        <input name='fruit_time' type='text' className='max-w-md' placeholder='Autumn, Winter' ref={register} />
+
+        <label htmlFor='soil'>Soil Texture</label>
+        <input name='soil' type='text' className='max-w-md' placeholder='loam, sand, clay' ref={register} />
+
+        <label htmlFor='ph'>pH</label>
+        <input name='ph' type='text' className='max-w-md' placeholder='acid, alkaline, neutral' ref={register} />
+
+        <label htmlFor='tolerates'>Tolerates</label>
+        <input name='tolerates' type='text' className='max-w-md' placeholder='Drought, Fire, Lime, Moderate frost' ref={register} />
+
         {/* <Tags
           name='tags'
-          tagifyRef={register} 
+          tagifyRef={register}
         /> */}
-    {/* {
+        {/* {
                 // settings={settings}  // tagify settings object
           // value="a,b,c"
           // {...tagifyProps}   // dynamic props such as "loading", "showDropdown:'abc'", "value"
           // onChange={e => (e.persist(), console.log("CHANGED:", e.target.value))}
 
-    soils: [], // 
+    soils: [], //
     uses: {
       medicinal: '',
       wood: '',
@@ -151,20 +170,20 @@ export default function SpeciesEditor({species, onSave}) {
     tags: [],
     links: [] // list of references */}
         <div className='block flex, flex-row'>
-          <button 
-            type="submit"
-            className=" btn-primary my-2"
-            >
+          <button
+            type='submit'
+            className=' btn-primary my-2'
+          >
             Save
           </button>
-          <button 
+          <button
             onClick={onSave}
-            className=" btn-secondary my-2"
-            >
+            className=' btn-secondary my-2'
+          >
             Cancel
           </button>
         </div>
       </form>
     </>
-  );
+  )
 }

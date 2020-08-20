@@ -1,12 +1,10 @@
-import React from 'react';
+import React from 'react'
 import Tags from './tags'
 import Link from 'next/link'
-import Reactable from 'reactable'
-
-const Table = Reactable.Table;
+import { useTable, useSortBy, useGlobalFilter, useAsyncDebounce } from 'react-table'
+import matchSorter from 'match-sorter'
 
 const SpeciesRow = ({ species }) => {
- 
   return (
     <Link href={`/species/${species.name}`}>
       <tr className='hover:bg-grey-400'>
@@ -16,47 +14,170 @@ const SpeciesRow = ({ species }) => {
         <td><Tags tags={species.tags} /></td>
       </tr>
     </Link>
-  );
-}
-
-const SpeciesTable1 = ({species}) => {
-  return (
-    <div className='panel'>
-    <table className='table-auto'>
-      <thead>
-        <th>Name</th>
-        <th>Scientific name</th>
-        <th>Other names</th>
-        <th>tags</th>
-      </thead>
-      <tbody>
-        {species.map( (sp, index) => <SpeciesRow key={index} species={sp} />)}
-      </tbody>
-    </table>
-    </div>
   )
 }
 
-const SpeciesTable = ({species}) => {
+// Define a default UI for filtering
+function GlobalFilter ({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter
+}) {
+  const [value, setValue] = React.useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+    setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+    <input
+      type='search'
+      placeholder='search'
+      className='pl-1 max-w-md'
+      value={value || ''}
+      onChange={e => {
+        setValue(e.target.value)
+        onChange(e.target.value)
+      }}
+    />
+  )
+}
+
+function fuzzyTextFilterFn (rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
+}
+
+// Let the table remove the filter if the string is empty
+fuzzyTextFilterFn.autoRemove = val => !val
+
+const SpeciesTable = ({ species }) => {
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Name',
+        accessor: 'name' // accessor is the "key" in the data
+      },
+      {
+        Header: 'Scientific Name',
+        accessor: 'scientificName'
+      },
+      {
+        Header: 'Other Names',
+        accessor: 'otherCommonNames'
+      },
+      {
+        Header: 'Habit',
+        accessor: 'habit'
+      },
+      {
+        Header: 'Native',
+        accessor: 'native'
+      }
+    ],
+    []
+  )
+
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter(row => {
+          const rowValue = row.values[id]
+          return rowValue !== undefined
+            ? String(rowValue)
+              .toLowerCase()
+              .startsWith(String(filterValue).toLowerCase())
+            : true
+        })
+      }
+    }),
+    []
+  )
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter
+  } = useTable(
+    {
+      columns,
+      data: species,
+      // defaultColumn, // Be sure to pass the defaultColumn option
+      filterTypes
+    },
+    // useFilters, // useFilters!
+    useGlobalFilter, // useGlobalFilter!
+    useSortBy
+  )
+
   return (
     <div className='panel'>
-    <Table 
-      className="table" 
-      id="SpeciesTable" 
-      data={species}
-      columns={[ 
-        { key: 'name', label: 'Common Name' }, // common english name
-        { key: 'otherCommonNames', label: 'Other names' }, // maori name 
-        { key: 'scientificName', label: 'Scientific name' }, // genus, species, varietal
-        ]}
-      sortable={[
-        'name',
-        'scientificName'
-      ]}
-      defaultSort={{column: 'name', direction: 'desc'}}
-      filterable={['name', 'otherCommonNames', 'scientificName']}
-    />  
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={state.globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
+      <table
+        {...getTableProps()}
+        className='table-auto'
+      >
+        <thead>
+          {headerGroups.map((headerGroup, i) => (
+            <tr
+              key={i}
+              {...headerGroup.getHeaderGroupProps()}
+            >
+              {headerGroup.headers.map((column, i) => (
+                <th
+                  key={i}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
+                  {column.render('Header')}
+                  {/* Add a sort direction indicator */}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' ⬆️'
+                        : ' ⬇️'
+                      : ''}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row)
+            console.log('row', row)
+            return (
+              <Link key={row.original._id} href={`/species/${row.original.slug}`}>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell, i) => {
+                    return (
+                      <td
+                        key={i}
+                        {...cell.getCellProps()}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    )
+                  })}
+                </tr>
+              </Link>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
-} 
+}
 export default SpeciesTable
