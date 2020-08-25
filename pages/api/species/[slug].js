@@ -23,23 +23,37 @@ handler.get(async (req, res) => {
 
 });
 
-handler.put(async (req, res) => {
+handler.patch(async (req, res) => {
   if (!req.user) {
     return res.status(401).send('unauthenticated');
   }
 
   const species = req.body
-  console.log('put', species)
+  console.log('put')
   if (!species) return res.status(400).send('empty body')
-  
+  let imageUrl
+  if (req.file) {
+    console.log('req.file')
+    const image = await cloudinary.uploader.upload(req.file.path, {
+      width: 512,
+      height: 512,
+      crop: 'fill'
+    })
+    imageUrl = image.secure_url
+  }
   const _id = species._id 
   delete species._id
   try {
     console.log('updating')
     const coll = req.db.collection('species')
     const doc = await coll.updateOne( 
-      {"_id": ObjectID(_id)}, 
-      { $set: species },
+      {_id: ObjectID(_id)}, 
+      { 
+        $set: { 
+          ...species,
+          ...(imageUrl && { imageUrl })
+        } 
+      },
       { upsert: true }
     )
     console.log(doc.modifiedCount)

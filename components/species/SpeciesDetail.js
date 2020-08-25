@@ -20,11 +20,13 @@ const SpeciesDetail = ({ species, children }) =>
       </h1>
       <div className='ml-auto mr-2 mt-2'>{children}</div>
     </div>
-    <p className='text-gray-700 '>{species.otherCommonNames}</p>
+    <p className='text-gray-600 '>{species.otherCommonNames}</p>
     <div className='flex flex-wrap-reverse  md:flex-no-wrap flex-row'>
-      <ReactMarkdown className='flex-auto flex-col mt-4 md:mt-0 prose' source={species.description} />
-      <img className='flex-auto  object-cover sm:ml-2' src={species.imageUrl} />
+      <ReactMarkdown className='w-2/3 mt-4 md:mt-0 prose' source={species.description} />
+      <img className='w-1/3  object-cover sm:ml-2' src={species.imageUrl} />
     </div>
+    <h2>Notes</h2>
+    <ReactMarkdown className='flex-auto flex-col my-4 md:mt-0 prose' source={species.notes} />
     <dl className='grid grid-flow-row grid-cols-2 max-w-md' height='100px'>
       <dt>Habit</dt><dd>{species.habit}</dd>
       <dt>Native</dt><dd>{species.native}</dd>

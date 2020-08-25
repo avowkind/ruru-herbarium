@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useCurrentUser } from '../../lib/hooks'
 import { useForm } from 'react-hook-form'
-import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
+// import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import slug from 'limax'
-import useSWR, { mutate } from 'swr'
 
 export const blankSpecies = [
   {
@@ -26,10 +25,33 @@ export const blankSpecies = [
   }
 ]
 
+// function ImgDropzone () {
+//   const onDrop = useCallback(acceptedFiles => {
+//     // Do something with the files
+//     console.log('dropped', acceptedFiles)
+//   }, [])
+//   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+//   return (
+//     <div
+//       className='h-20 max-w-sm text-center align-middle bg-gray-200 border'
+//       {...getRootProps()}>
+//       <input {...getInputProps()} />
+//       {
+//         isDragActive
+//           ? <p>Drop the files here ...</p>
+//           : <p>Drag 'n' drop some files here, or click to select files</p>
+//       }
+//     </div>
+//   )
+// }
+
 export default function SpeciesEditor ({ species, onSave }) {
   console.log('species editor', species)
   const [user] = useCurrentUser()
   const [msg, setMsg] = useState(null)
+  const sp = { ...species }
+  delete sp.imageUrl
   const { register, handleSubmit, watch, errors } = useForm(
     {
       defaultValues: species || blankSpecies
@@ -42,13 +64,14 @@ export default function SpeciesEditor ({ species, onSave }) {
       </div>
     )
   }
+
   const onSubmit = async data => {
     let res
     data.slug = slug(data.name)
     console.log('onSubmit', data)
-    if (species) {
+    if (species && species._id) {
       res = await fetch(`/api/species/${data.slug}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ _id: species._id, ...data })
       })
@@ -62,7 +85,7 @@ export default function SpeciesEditor ({ species, onSave }) {
     if (res.ok) {
       setMsg('New species added')
       setTimeout(() => setMsg(null), 5000)
-      onSave()
+      onSave(data)
     }
   }
 
@@ -97,6 +120,34 @@ export default function SpeciesEditor ({ species, onSave }) {
           ref={register}
         />
 
+        <label htmlFor='description'>Notes</label>
+        <textarea
+          name='notes'
+          rows='15'
+          placeholder='our own notes'
+          ref={register}
+        />
+
+        <label htmlFor='imageUrl'>
+            Paste Image imageUrl
+        </label>
+        <input
+          type='url'
+          id='imageUrl'
+          name='imageUrl'
+          ref={register}
+        />
+        {/* <input
+            type='file'
+            id='imageUrl'
+            name='imageUrl'
+            onChange={handlePicInput}
+            accept='image/png, image/jpeg'
+            // ref={register}
+          />
+          <ImgDropzone />
+           */}
+
         <label htmlFor='habit'>Habit</label>
         <div className='inline-block relative w-64'>
           <select
@@ -104,9 +155,13 @@ export default function SpeciesEditor ({ species, onSave }) {
             className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'
             ref={register}
           >
-            <option>Erect</option>
+            <option>Grass</option>
+            <option>Herb</option>
+            <option>Moss</option>
+            <option>Lichen</option>
             <option>Shrub</option>
-            <option>Bush</option>
+            <option>Tree</option>
+            <option>Vine</option>
           </select>
           <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
             <svg className='fill-current h-4 w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' /></svg>

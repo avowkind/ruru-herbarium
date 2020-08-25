@@ -1,34 +1,34 @@
-import nextConnect from 'next-connect';
-import isEmail from 'validator/lib/isEmail';
-import normalizeEmail from 'validator/lib/normalizeEmail';
-import bcrypt from 'bcryptjs';
-import { nanoid } from 'nanoid';
-import middleware from '../../middlewares/middleware';
-import { extractUser } from '../../lib/api-helpers';
+import nextConnect from 'next-connect'
+import isEmail from 'validator/lib/isEmail'
+import normalizeEmail from 'validator/lib/normalizeEmail'
+import bcrypt from 'bcryptjs'
+import { nanoid } from 'nanoid'
+import middleware from '../../middlewares/middleware'
+import { extractUser } from '../../lib/api-helpers'
 
-const handler = nextConnect();
+const handler = nextConnect()
 
-handler.use(middleware);
+handler.use(middleware)
 
 handler.post(async (req, res) => {
-  const { name, password } = req.body;
-  const email = normalizeEmail(req.body.email);
+  const { name, password } = req.body
+  const email = normalizeEmail(req.body.email)
   if (!isEmail(email)) {
-    res.status(400).send('The email you entered is invalid.');
-    return;
+    res.status(400).send('The email you entered is invalid.')
+    return
   }
   if (!password || !name) {
-    res.status(400).send('Missing field(s)');
-    return;
+    res.status(400).send('Missing field(s)')
+    return
   }
-  console.log("post users")
+  console.log('post users')
   if ((await req.db.collection('users').countDocuments({ email })) > 0) {
-    res.status(403).send('The email has already been used.');
-    return;
+    res.status(403).send('The email has already been used.')
+    return
   }
-  console.log("post users")
+  console.log('post users')
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10)
   const user = await req.db
     .collection('users')
     .insertOne({
@@ -38,15 +38,15 @@ handler.post(async (req, res) => {
       name,
       emailVerified: false,
       bio: '',
-      profilePicture: null,
+      profilePicture: null
     })
-    .then(({ ops }) => ops[0]);
+    .then(({ ops }) => ops[0])
   req.logIn(user, (err) => {
-    if (err) throw err;
+    if (err) throw err
     res.status(201).json({
-      user: extractUser(req),
-    });
-  });
-});
+      user: extractUser(req)
+    })
+  })
+})
 
-export default handler;
+export default handler
