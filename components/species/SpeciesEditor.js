@@ -148,7 +148,7 @@ export default function SpeciesEditor ({ species, onSave }) {
           <ImgDropzone />
            */}
 
-        <label htmlFor='habit'>Habit</label>
+        <label htmlFor='habit'>Growth Habit</label>
         <div className='inline-block relative w-64'>
           <select
             name='habit'
