@@ -18,14 +18,14 @@ const MenuItem = ({ children, href, as }) => {
 function Header ({ user, mutate }) {
   const handleLogout = async () => {
     await fetch('/api/auth', {
-      method: 'DELETE',
-    });
-    mutate(null);
-  };
+      method: 'DELETE'
+    })
+    mutate(null)
+  }
   return (
     <header className='bg-orange-300 sticky top-0'>
       <nav className='container mx-auto flex items-center justify-between flex-wrap  py-2 '>
-        <Link href="/"> 
+        <Link href='/'>
           <div id='Brand' className='text-3xl text-black-700'>
             Ruru House Herbarium
           </div>
@@ -37,7 +37,7 @@ function Header ({ user, mutate }) {
           <MenuItem href='/species'>Species</MenuItem>
           <MenuItem href='/logbook'>Log Book</MenuItem>
           <MenuItem href='/about'>About</MenuItem>
-          
+
           {!user ? (
             <>
               <MenuItem href='/login'>Sign in</MenuItem>
@@ -46,9 +46,10 @@ function Header ({ user, mutate }) {
           ) : (
             <>
               <MenuItem href='/user/[userId]' as={`/user/${user._id}`}>Profile</MenuItem>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className='block mt-4 inline-block rounded-md text-center bg-orange-200 hover:bg-orange-500 px-4 py-2 m-2 lg:mt-0 hover:text-white mr-4'
-                tabIndex={0} role="button" onClick={handleLogout}>
+              <a
+                className='block mt-4 inline-block rounded-md text-center bg-orange-200 hover:bg-orange-500 px-4 py-2 m-2 lg:mt-0 hover:text-white mr-4'
+                tabIndex={0} role='button' onClick={handleLogout}
+              >
                 Logout
               </a>
             </>

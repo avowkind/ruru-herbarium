@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import ContentEditable from 'react-contenteditable'
 
 const Cp = createContext()

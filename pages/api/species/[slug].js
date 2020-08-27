@@ -1,10 +1,10 @@
 
-import nextConnect from 'next-connect';
+import nextConnect from 'next-connect'
 import middleware from '../../../middlewares/middleware'
 import { ObjectID } from 'mongodb'
-const handler = nextConnect();
+const handler = nextConnect()
 
-handler.use(middleware);
+handler.use(middleware)
 
 handler.get(async (req, res) => {
   console.log('get', req.query.slug)
@@ -12,20 +12,16 @@ handler.get(async (req, res) => {
     const sp = await req.db
       .collection('species')
       .findOne({ slug: req.query.slug })
-    if (!sp) 
-      res.status(404).json({})
-    else
-      res.json(sp);
+    if (!sp) { res.status(404).json({}) } else { res.json(sp) }
   } catch (e) {
     console.log('error', e)
     res.status(500).json(e)
   }
-
-});
+})
 
 handler.patch(async (req, res) => {
   if (!req.user) {
-    return res.status(401).send('unauthenticated');
+    return res.status(401).send('unauthenticated')
   }
 
   const species = req.body
@@ -41,29 +37,29 @@ handler.patch(async (req, res) => {
     })
     imageUrl = image.secure_url
   }
-  const _id = species._id 
+  const _id = species._id
   delete species._id
   try {
     console.log('updating')
     const coll = req.db.collection('species')
-    const doc = await coll.updateOne( 
-      {_id: ObjectID(_id)}, 
-      { 
-        $set: { 
+    const doc = await coll.updateOne(
+      { _id: ObjectID(_id) },
+      {
+        $set: {
           ...species,
           ...(imageUrl && { imageUrl })
-        } 
+        }
       },
       { upsert: true }
     )
     console.log(doc.modifiedCount)
     const sp = await coll.findOne({ _id })
     console.log('updated')
-    return res.send(sp);
+    return res.send(sp)
   } catch (e) {
     console.log('error', e)
     return res.status(500)
   }
 })
 
-export default handler;
+export default handler

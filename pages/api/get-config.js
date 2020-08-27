@@ -1,5 +1,4 @@
 import nextConnect from 'next-connect'
-import middleware from '../../middlewares/middleware'
 import config from '../../lib/config'
 const handler = nextConnect()
 

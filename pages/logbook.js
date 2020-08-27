@@ -1,10 +1,10 @@
-import React from 'react';
-import { useCurrentUser } from '../lib/hooks';
-import PostEditor from '../components/post/editor';
-import Posts from '../components/post/posts';
+import React from 'react'
+import { useCurrentUser } from '../lib/hooks'
+import PostEditor from '../components/post/editor'
+import Posts from '../components/post/posts'
 
 const IndexPage = () => {
-  const [user] = useCurrentUser();
+  const [user] = useCurrentUser()
 
   return (
     <>
@@ -14,7 +14,7 @@ const IndexPage = () => {
         <Posts />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage

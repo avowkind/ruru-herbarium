@@ -1,18 +1,15 @@
-import React from 'react';
-import { useCurrentUser } from '../lib/hooks';
-
+import React from 'react'
+import { useCurrentUser } from '../lib/hooks'
 
 const IndexPage = () => {
-  const [user] = useCurrentUser();
+  const [user] = useCurrentUser()
 
   return (
     <>
       <h1>Home</h1>
-      <div>
-     
-      </div>
+      <div />
     </>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage

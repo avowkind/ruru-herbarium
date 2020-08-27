@@ -1,10 +1,10 @@
-import React from 'react';
-import Head from 'next/head';
-import Layout from '../components/layout';
+import React from 'react'
+import Head from 'next/head'
+import Layout from '../components/layout'
 import '../styles.css'
-import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
+// import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp ({ Component, pageProps }) {
   return (
     <Layout>
       <Head>
@@ -12,5 +12,5 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <Component {...pageProps} />
     </Layout>
-  );
+  )
 }

@@ -1,22 +1,22 @@
-import React from 'react';
-import Head from 'next/head';
-import Router from 'next/router';
+import React from 'react'
+import Head from 'next/head'
+import Router from 'next/router'
 
 const ForgetPasswordPage = () => {
-  async function handleSubmit(e) {
-    e.preventDefault(e);
+  async function handleSubmit (e) {
+    e.preventDefault(e)
 
     const body = {
-      email: e.currentTarget.email.value,
-    };
+      email: e.currentTarget.email.value
+    }
 
     const res = await fetch('/api/user/password/reset', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
+      body: JSON.stringify(body)
+    })
 
-    if (res.status === 200) Router.replace('/');
+    if (res.status === 200) Router.replace('/')
   }
 
   return (
@@ -27,17 +27,17 @@ const ForgetPasswordPage = () => {
       <h2>Forget password</h2>
       <form onSubmit={handleSubmit}>
         <p>Do not worry. Simply enter your email address below.</p>
-        <label htmlFor="email">
+        <label htmlFor='email'>
           <input
-            id="email"
-            type="email"
-            placeholder="Email"
+            id='email'
+            type='email'
+            placeholder='Email'
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default ForgetPasswordPage;
+export default ForgetPasswordPage

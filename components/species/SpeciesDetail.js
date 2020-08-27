@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from 'react'
+import React from 'react'
 import Tags from './tags'
 import ContentEditable from 'react-contenteditable'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
@@ -6,16 +6,16 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
 
-const NameList = ({ names }) => {
-  if (!names || names.length === 0) return ''
-  return (
-    <div className='pb-2 grid grid-flow-row grid-cols-4 gap-4 '>
-      {names.map(
-        (name, index) => <div className='text-gray-700 pl-1 divide-x-6 divide-gray-800' key={index}>{name}</div>
-      )}
-    </div>
-  )
-}
+// const NameList = ({ names }) => {
+//   if (!names || names.length === 0) return ''
+//   return (
+//     <div className='pb-2 grid grid-flow-row grid-cols-4 gap-4 '>
+//       {names.map(
+//         (name, index) => <div className='text-gray-700 pl-1 divide-x-6 divide-gray-800' key={index}>{name}</div>
+//       )}
+//     </div>
+//   )
+// }
 
 const updateSpecies = async (species, field) => {
   if (species && species._id) {

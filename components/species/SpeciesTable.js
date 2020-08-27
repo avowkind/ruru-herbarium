@@ -1,21 +1,7 @@
 import React from 'react'
-import Tags from './tags'
 import Link from 'next/link'
 import { useTable, useSortBy, useGlobalFilter, useAsyncDebounce } from 'react-table'
 import matchSorter from 'match-sorter'
-
-const SpeciesRow = ({ species }) => {
-  return (
-    <Link href={`/species/${species.name}`}>
-      <tr className='hover:bg-grey-400'>
-        <td className='hover:bg-grey-200'><a>{species.name}</a></td>
-        <td>{species.scientificName}</td>
-        <td>{species.otherCommonNames}</td>
-        <td><Tags tags={species.tags} /></td>
-      </tr>
-    </Link>
-  )
-}
 
 // Define a default UI for filtering
 function GlobalFilter ({
@@ -103,7 +89,6 @@ const SpeciesTable = ({ species }) => {
     rows,
     prepareRow,
     state,
-    visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter
   } = useTable(

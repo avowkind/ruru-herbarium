@@ -1,12 +1,11 @@
 module.exports = {
   purge: false,
   theme: {
-    extend: {},
+    extend: {}
   },
   variants: {
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    // ...
-  ],
+    require('@tailwindcss/typography')
+  ]
 }

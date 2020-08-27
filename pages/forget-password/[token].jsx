@@ -1,24 +1,24 @@
-import React from 'react';
-import Head from 'next/head';
-import nextConnect from 'next-connect';
-import Router from 'next/router';
-import database from '../../middlewares/database';
+import React from 'react'
+import Head from 'next/head'
+import nextConnect from 'next-connect'
+import Router from 'next/router'
+import database from '../../middlewares/database'
 
 const ResetPasswordTokenPage = ({ valid, token }) => {
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit (event) {
+    event.preventDefault()
     const body = {
       password: event.currentTarget.password.value,
-      token,
-    };
+      token
+    }
 
     const res = await fetch('/api/user/password/reset', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
+      body: JSON.stringify(body)
+    })
 
-    if (res.status === 200) Router.replace('/');
+    if (res.status === 200) Router.replace('/')
   }
 
   return (
@@ -40,33 +40,33 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
           <form onSubmit={handleSubmit}>
             <div>
               <input
-                name="password"
-                type="password"
-                placeholder="New password"
+                name='password'
+                type='password'
+                placeholder='New password'
               />
             </div>
-            <button type="submit">Set new password</button>
+            <button type='submit'>Set new password</button>
           </form>
         </>
       ) : (
         <p>This link may have been expired</p>
       )}
     </>
-  );
-};
+  )
+}
 
-export async function getServerSideProps(ctx) {
-  const handler = nextConnect();
-  handler.use(database);
-  await handler.apply(ctx.req, ctx.res);
-  const { token } = ctx.query;
+export async function getServerSideProps (ctx) {
+  const handler = nextConnect()
+  handler.use(database)
+  await handler.apply(ctx.req, ctx.res)
+  const { token } = ctx.query
 
   const tokenDoc = await ctx.req.db.collection('tokens').findOne({
     token: ctx.query.token,
-    type: 'passwordReset',
-  });
+    type: 'passwordReset'
+  })
 
-  return { props: { token, valid: !!tokenDoc } };
+  return { props: { token, valid: !!tokenDoc } }
 }
 
-export default ResetPasswordTokenPage;
+export default ResetPasswordTokenPage

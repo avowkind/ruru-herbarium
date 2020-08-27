@@ -14,6 +14,6 @@ module.exports = withMDX({
     WEB_URI: process.env.WEB_URI,
     SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
-    SESSION_SECRET: process.env.SESSION_SECRET,
-  },
+    SESSION_SECRET: process.env.SESSION_SECRET
+  }
 })

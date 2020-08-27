@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
 import SpeciesView from '../components/species/SpeciesView'
 import SpeciesEditor from '../components/species/SpeciesEditor'
 
-const Page = () => {
+export default function SpeciesPage () {
   const [newSpecies, setNewSpecies] = useState(false)
   return (
     <>
@@ -12,10 +12,8 @@ const Page = () => {
       >
         New Species
       </button>
-      {newSpecies && <SpeciesEditor onSave={() => setNewSpecies(false)}/>}
-      <SpeciesView  />
+      {newSpecies && <SpeciesEditor onSave={() => setNewSpecies(false)} />}
+      <SpeciesView />
     </>
-  );
-};
-
-export default Page;
+  )
+}

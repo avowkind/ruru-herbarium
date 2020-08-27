@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { useCurrentUser } from '../../lib/hooks'
 import { useForm } from 'react-hook-form'
 // import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
@@ -52,7 +52,7 @@ export default function SpeciesEditor ({ species, onSave }) {
   const [msg, setMsg] = useState(null)
   const sp = { ...species }
   delete sp.imageUrl
-  const { register, handleSubmit, watch, errors } = useForm(
+  const { register, handleSubmit, errors } = useForm(
     {
       defaultValues: species || blankSpecies
     })
