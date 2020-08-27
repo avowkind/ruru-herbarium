@@ -91,11 +91,12 @@ const SpeciesDetail = ({ species, children }) => {
       </div>
 
       <div className='flex flex-row mt-2'>
-        <Tabs className='w-2/3' >
+        <Tabs className='w-2/3'>
           <TabList>
             <Tab>Notes</Tab>
             <Tab>Planting</Tab>
             <Tab>Maintenance</Tab>
+            <Tab>Uses</Tab>
           </TabList>
 
           <TabPanel>
@@ -106,6 +107,9 @@ const SpeciesDetail = ({ species, children }) => {
           </TabPanel>
           <TabPanel>
             <SpeciesItem id='maintenance' tag='section' className='mt-4 md:mt-0 prose' />
+          </TabPanel>
+          <TabPanel>
+            <SpeciesItem id='uses' tag='section' className='mt-4 md:mt-0 prose' />
           </TabPanel>
         </Tabs>
         <SpeciesProps />
