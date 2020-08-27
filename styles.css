@@ -102,6 +102,23 @@ button {
   @apply max-w-full flex my-4 bg-white rounded-lg shadow-md 
 }
 
+.react-tabs__tab-list {
+  @apply flex border-b mt-2;
+}
+
+.react-tabs__tab {
+  @apply mr-1 bg-white inline-block py-2 px-4 text-blue-500 font-semibold;
+}
+.react-tabs__tab:hover {
+  @apply text-blue-800 ;
+}
+.react-tabs__tab--selected {
+  @apply -mb-px mx-2 bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold;
+}
+
+.react-tabs__tab-panel {
+  @apply bg-white ;
+}
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;

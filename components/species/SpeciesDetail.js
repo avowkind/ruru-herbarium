@@ -1,7 +1,7 @@
 import React, { createContext, useState, useRef, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown'
 import Tags from './tags'
 import ContentEditable from 'react-contenteditable'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
@@ -40,48 +40,76 @@ const SpeciesDetail = ({ species, children }) => {
     updateSpecies(species, field)
   }
 
+  const SpeciesItem = ({ tag, id, className }) =>
+    <ContentEditable
+      id={id}
+      className={className}
+      html={species[id]} // innerHTML of the editable div
+      onChange={handleChange} // handle innerHTML change
+      onBlur={handleBlur}
+      tagName={tag || 'span'}
+    />
+
+  const SpeciesProps = () =>
+    <dl className='border-l pl-4 grid grid-flow-row grid-cols-2 max-w-md' height='100px'>
+      <dt>Habit</dt>
+      <SpeciesItem id='habit' tag='dd' />
+      <dt>Native</dt>
+      <SpeciesItem id='native' tag='dd' />
+      <dt>Flowers</dt>
+      <SpeciesItem id='flowers' tag='dd' />
+      <dt>Flowering Time</dt>
+      <SpeciesItem id='flower_time' tag='dd' />
+      <dt>Fruit</dt>
+      <SpeciesItem id='fruit' tag='dd' />
+      <dt>Fruit Time</dt>
+      <SpeciesItem id='fruit_time' tag='dd' />
+      <dt>Soil Texture</dt>
+      <SpeciesItem id='soil' tag='dd' />
+      <dt>pH</dt>
+      <SpeciesItem id='ph' tag='dd' />
+      <dt>Tolerates</dt>
+      <SpeciesItem id='tolerates' tag='dd' />
+    </dl>
   return (
     <div className='max-w-full px-2 py-2 my-2 bg-white rounded-lg shadow-md '>
       <div className='border-b-2 flex flex-row max-w-full'>
-        <h1>{species.name}
-          <span className='ml-2 italic font-serif text-lg text-gray-800'>{species.scientificName}</span>
+        <h1>
+          <SpeciesItem id='name' />
+          <SpeciesItem id='scientificName' className='ml-2 italic font-serif text-lg text-gray-800' />
         </h1>
         <div className='ml-auto mr-2 mt-2'>{children}</div>
       </div>
-      <p className='text-gray-600 '>{species.otherCommonNames}</p>
+      <div className='text-gray-600 '>
+        Common Names:
+        <SpeciesItem id='otherCommonNames' className='ml-2' />
+      </div>
+
       <div className='flex flex-wrap-reverse  md:flex-no-wrap flex-row'>
-        {/* <ReactMarkdown className='w-2/3 mt-4 md:mt-0 prose' source={species.description} /> */}
-        <ContentEditable
-          id='description'
-          className='w-2/3 mt-4 md:mt-0 prose'
-          html={species.description} // innerHTML of the editable div
-          onChange={handleChange} // handle innerHTML change
-          onBlur={handleBlur}
-          tagName='section'
-        />
+        <SpeciesItem id='description' tag='section' className='w-2/3 mt-4 md:mt-0' />
         <img className='w-1/3  object-cover sm:ml-2' src={species.imageUrl} />
       </div>
-      <h2>Notes</h2>
-      <ContentEditable
-        id='notes'
-        className='flex-auto flex-col my-4 md:mt-0 prose'
-        html={species.notes} // innerHTML of the editable div
-        onChange={handleChange} // handle innerHTML change
-        onBlur={handleBlur}
-        tagName='section'
-      />
-      <dl className='grid grid-flow-row grid-cols-2 max-w-md' height='100px'>
-        <dt>Habit</dt><dd>{species.habit}</dd>
-        <dt>Native</dt><dd>{species.native}</dd>
-        <dt>Flowers</dt><dd>{species.flowers}</dd>
-        <dt>Flowering Time</dt><dd>{species.flower_time}</dd>
-        <dt>Fruit</dt><dd>{species.fruit}</dd>
-        <dt>Fruit Time</dt><dd>{species.fruit_time}</dd>
-        <dt>Soil Texture</dt><dd>{species.soil}</dd>
-        <dt>pH</dt><dd>{species.ph}</dd>
-        <dt>Tolerates</dt><dd>{species.tolerates}</dd>
-      </dl>
 
+      <div className='flex flex-row mt-2'>
+        <Tabs className='w-2/3' >
+          <TabList>
+            <Tab>Notes</Tab>
+            <Tab>Planting</Tab>
+            <Tab>Maintenance</Tab>
+          </TabList>
+
+          <TabPanel>
+            <SpeciesItem id='notes' tag='section' className='mt-4 md:mt-0 prose' />
+          </TabPanel>
+          <TabPanel>
+            <SpeciesItem id='planting' tag='section' className='mt-4 md:mt-0 prose' />
+          </TabPanel>
+          <TabPanel>
+            <SpeciesItem id='maintenance' tag='section' className='mt-4 md:mt-0 prose' />
+          </TabPanel>
+        </Tabs>
+        <SpeciesProps />
+      </div>
       <Tags tags={species.tags} />
     </div>
   )

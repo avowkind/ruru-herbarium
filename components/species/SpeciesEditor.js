@@ -112,22 +112,6 @@ export default function SpeciesEditor ({ species, onSave }) {
         <label htmlFor='taxon'>Family or group</label>
         <input name='taxon' type='text' className='max-w-md' placeholder='Olea europaea' ref={register} />
 
-        <label htmlFor='description'>Description</label>
-        <textarea
-          name='description'
-          rows='15'
-          placeholder='describe the species'
-          ref={register}
-        />
-
-        <label htmlFor='description'>Notes</label>
-        <textarea
-          name='notes'
-          rows='15'
-          placeholder='our own notes'
-          ref={register}
-        />
-
         <label htmlFor='imageUrl'>
             Paste Image imageUrl
         </label>
