@@ -41,14 +41,16 @@ const PlantDetail = ({ plant, children }) => {
 
   const PlantProps = () =>
     <dl className='border-l pl-4 grid grid-flow-row grid-cols-2 max-w-md' height='100px'>
+      <dt>Count</dt>
+      <PlantItem id='plantCount' tag='dd' />
       <dt>Purchased</dt>
       <PlantItem id='purchaseDate' tag='dd' />
+      <dt>From</dt>
+      <PlantItem id='purchasedFrom' tag='dd' />
       <dt>Cost $</dt>
       <PlantItem id='cost' tag='dd' />
       <dt>Planted at</dt>
       <PlantItem id='location' tag='dd' />
-      <dt>Count</dt>
-      <PlantItem id='plantCount' tag='dd' />
     </dl>
 
   return (
@@ -56,7 +58,9 @@ const PlantDetail = ({ plant, children }) => {
       <div className='border-b-2 flex flex-row max-w-full'>
         <Link href={`/species/${slug(plant.species)}`}>
           <h1>
-            {plant.plantCount} <PlantItem id='species' /> Plants
+            {plant.plantCount}{" "} 
+            <PlantItem id='species' />{" "} 
+            {plant.variety && <span className='ml-2 italic font-serif text-lg text-gray-800'>(var: <PlantItem id='variety' />)</span> }
             {" - "}<PlantItem id='purchaseDate' tag='span' />
           </h1>
         </Link>

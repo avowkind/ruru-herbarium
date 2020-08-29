@@ -47,8 +47,16 @@ const PlantTable = ({ plants }) => {
         accessor: 'species' // accessor is the "key" in the data
       },
       {
+        Header: 'Var',
+        accessor: 'variety' 
+      },
+      {
         Header: 'Purchased',
         accessor: 'purchaseDate'
+      },
+      {
+        Header: 'From',
+        accessor: 'purchasedFrom'
       },
       {
         Header: 'Where planted',

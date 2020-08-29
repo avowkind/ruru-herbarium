@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form'
 // import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import slug from 'limax'
 
-export const blankPlants = [
+export const blankPlant = [
   {
     species: '', // common english name
     purchaseDate: '',
+    purchasedFrom: '',
     imageUrl: '',
     cost: 1,
     location: '',
+    variety: '',
     plantCount: 1
   }
 ]
@@ -36,15 +38,14 @@ export const blankPlants = [
 //   )
 // }
 
-export default function PlantEditor ({ plants, onSave }) {
-  console.log('plants editor', plants)
+export default function PlantEditor ({ plant, onSave }) {
   const [user] = useCurrentUser()
   const [msg, setMsg] = useState(null)
-  const sp = { ...plants }
+  const sp = { ...plant }
   delete sp.imageUrl
   const { register, handleSubmit, errors } = useForm(
     {
-      defaultValues: plants || blankPlants
+      defaultValues: plant || blankPlant
     })
 
   if (!user) {
@@ -57,11 +58,11 @@ export default function PlantEditor ({ plants, onSave }) {
 
   const onSubmit = async data => {
     let res
-    if (plants && plants._id) {
-      res = await fetch(`/api/plants/${plants._id}`, {
+    if (plant && plant._id) {
+      res = await fetch(`/api/plants/${plant._id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _id: plants._id, ...data })
+        body: JSON.stringify({ _id: plant._id, ...data })
       })
     } else {
       res = await fetch('/api/plants', {
@@ -71,7 +72,7 @@ export default function PlantEditor ({ plants, onSave }) {
       })
     }
     if (res.ok) {
-      setMsg('New plants added')
+      setMsg('New plant added')
       setTimeout(() => setMsg(null), 5000)
       onSave(data)
     }
@@ -93,6 +94,10 @@ export default function PlantEditor ({ plants, onSave }) {
         {errors.name && <span>Gotta have a species</span>}
         <label htmlFor='purchaseDate'>Purchase date</label>
         <input name='purchaseDate' type='text' className='max-w-md' ref={register} />
+        <label htmlFor='purchasedFrom'>Purchased from</label>
+        <input name='purchasedFrom' type='text' className='max-w-md' ref={register} />
+        <label htmlFor='variety'>Variety</label>
+        <input name='variety' type='text' className='max-w-md' ref={register} />
         <label htmlFor='plantCount'>Number of plants</label>
         <input name='plantCount' type='number' className='max-w-md' ref={register} />
         <label htmlFor='cost'>Cost</label>
