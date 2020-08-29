@@ -22,12 +22,12 @@ cloudinary.config({
 handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const species = await req.db
-    .collection('species')
+  const plants = await req.db
+    .collection('plants')
     .find({})
     // .sort({ name })
     .toArray()
-  res.send(species)
+  res.send(plants)
 })
 
 handler.post(async (req, res) => {
@@ -35,16 +35,16 @@ handler.post(async (req, res) => {
     return res.status(401).send('unauthenticated')
   }
 
-  const species = req.body
-  if (!species) return res.status(400).send('You must write something')
+  const plants = req.body
+  if (!plants) return res.status(400).send('You must write something')
 
   const sp = {
-    ...species,
+    ...plants,
     createdAt: new Date(),
     creatorId: req.user._id
   }
 
-  await req.db.collection('species').insertOne(sp)
+  await req.db.collection('plants').insertOne(sp)
   return res.send(sp)
 })
 
@@ -62,19 +62,19 @@ handler.patch(upload.single('imageUrl'), async (req, res) => {
     })
     imageUrl = image.secure_url
   }
-  const species = req.body
-  await req.db.collection('users').updateOne(
+  const plants = req.body
+  await req.db.collection('plants').updateOne(
     { _id: req.user._id },
     {
       $set: {
-        ...species,
+        ...plants,
         ...(imageUrl && { imageUrl })
       }
     }
   )
 
   const sp = await req.db
-    .collection('species')
+    .collection('plants')
     .find({})
     // .sort({ name })
     .toArray()

@@ -16,13 +16,8 @@ export async function setUpDb (db) {
 
 export default async function database (req, res, next) {
   if (!client.isConnected()) {
-    console.time('mongoConnect')
     await client.connect()
-    console.timeEnd('mongoConnect')
-  } else {
-    console.log('mongo still connected')
   }
-
   req.dbClient = client
   req.db = client.db(process.env.DB_NAME)
   await setUpDb(req.db)

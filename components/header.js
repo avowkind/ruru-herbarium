@@ -31,21 +31,22 @@ function Header ({ user, mutate }) {
           </div>
         </Link>
         <ul className=' flex   '>
-          <MenuItem href='/'>
-              Home
-          </MenuItem>
-          <MenuItem href='/species'>Species</MenuItem>
-          <MenuItem href='/logbook'>Log Book</MenuItem>
-          <MenuItem href='/about'>About</MenuItem>
+          {/* <MenuItem href='/'>Home</MenuItem> */}
+          <MenuItem href='/plants'>Plants</MenuItem>
 
           {!user ? (
             <>
+              <MenuItem href='/about'>About</MenuItem>
               <MenuItem href='/login'>Sign in</MenuItem>
               <MenuItem href='/signup'>Sign up</MenuItem>
             </>
           ) : (
             <>
+              <MenuItem href='/species'>Species</MenuItem>
+              <MenuItem href='/logbook'>Log Book</MenuItem>
               <MenuItem href='/user/[userId]' as={`/user/${user._id}`}>Profile</MenuItem>
+              <MenuItem href='/about'>About</MenuItem>
+
               <a
                 className='block mt-4 inline-block rounded-md text-center bg-orange-200 hover:bg-orange-500 px-4 py-2 m-2 lg:mt-0 hover:text-white mr-4'
                 tabIndex={0} role='button' onClick={handleLogout}
@@ -54,6 +55,7 @@ function Header ({ user, mutate }) {
               </a>
             </>
           )}
+
         </ul>
       </nav>
 

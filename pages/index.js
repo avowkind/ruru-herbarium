@@ -7,6 +7,11 @@ const IndexPage = () => {
   return (
     <>
       <h1>Home</h1>
+      {!user ? (
+        <p>Please sign in.</p>
+      ) : (
+        <p>Hi</p>
+      )}
       <div />
     </>
   )
