@@ -114,6 +114,9 @@ const SpeciesDetail = ({ species, children }) => {
         </Tabs>
         <SpeciesProps />
       </div>
+      <a href={`https://www.wikiwand.com/en/${species.scientificName}`} >
+        {species.scientificName} on Wikipedia
+      </a>
       <Tags tags={species.tags} />
     </div>
   )
