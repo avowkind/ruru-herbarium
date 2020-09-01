@@ -1,5 +1,7 @@
 import React from 'react'
 import { useCurrentUser } from '../lib/hooks'
+import { withApollo } from '../apollo/client'
+import SpeciesView from '../components/species/SpeciesViewGQL'
 
 const IndexPage = () => {
   const [user] = useCurrentUser()
@@ -10,11 +12,11 @@ const IndexPage = () => {
       {!user ? (
         <p>Please sign in.</p>
       ) : (
-        <p>Hi</p>
+        <SpeciesView />
       )}
       <div />
     </>
   )
 }
 
-export default IndexPage
+export default withApollo(IndexPage)

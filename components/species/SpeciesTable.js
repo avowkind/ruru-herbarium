@@ -53,10 +53,6 @@ const SpeciesTable = ({ species }) => {
       {
         Header: 'Habit',
         accessor: 'habit'
-      },
-      {
-        Header: 'Native',
-        accessor: 'native'
       }
     ],
     []

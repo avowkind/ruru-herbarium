@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import SpeciesView from '../components/species/SpeciesView'
+import { withApollo } from '../apollo/client'
 import SpeciesEditor from '../components/species/SpeciesEditor'
+import SpeciesView from '../components/species/SpeciesViewGQL'
 
-export default function SpeciesPage () {
+function SpeciesPage () {
   const [newSpecies, setNewSpecies] = useState(false)
   return (
     <>
@@ -17,3 +18,5 @@ export default function SpeciesPage () {
     </>
   )
 }
+
+export default withApollo(SpeciesPage)
