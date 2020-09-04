@@ -35,38 +35,19 @@ function fuzzyTextFilterFn (rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-const PlantTable = ({ plants }) => {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: '#',
-        accessor: 'plantCount'
-      },
-      {
-        Header: 'Species',
-        accessor: 'species' // accessor is the "key" in the data
-      },
-      {
-        Header: 'Var',
-        accessor: 'variety' 
-      },
-      {
-        Header: 'Purchased',
-        accessor: 'purchaseDate'
-      },
-      {
-        Header: 'From',
-        accessor: 'purchasedFrom'
-      },
-      {
-        Header: 'Where planted',
-        accessor: 'location'
-      }
-
-    ],
-    []
-  )
-
+const columnsNoSp = [
+  { Header: '#', accessor: 'plantCount' },
+  { Header: 'Var', accessor: 'variety' },
+  { Header: 'Purchased', accessor: 'purchaseDate' },
+  { Header: 'From', accessor: 'purchasedFrom' },
+  { Header: 'Where planted', accessor: 'location' }
+]
+const columnsSp = [
+  { Header: 'Species', accessor: 'species' },
+  ...columnsNoSp
+]
+const PlantTable = ({ plants, omitspecies }) => {
+  const columns = omitspecies ? columnsNoSp : columnsSp
   const filterTypes = React.useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
@@ -110,6 +91,7 @@ const PlantTable = ({ plants }) => {
 
   return (
     <div className='panel'>
+      <h2>Plants </h2>
       <GlobalFilter
         preGlobalFilteredRows={preGlobalFilteredRows}
         globalFilter={state.globalFilter}

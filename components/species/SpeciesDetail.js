@@ -2,30 +2,73 @@ import React from 'react'
 import Tags from './tags'
 import ContentEditable from 'react-contenteditable'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import gql from 'graphql-tag'
+import PlantTable from '../plants/PlantTable'
 
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
 
-// const NameList = ({ names }) => {
-//   if (!names || names.length === 0) return ''
-//   return (
-//     <div className='pb-2 grid grid-flow-row grid-cols-4 gap-4 '>
-//       {names.map(
-//         (name, index) => <div className='text-gray-700 pl-1 divide-x-6 divide-gray-800' key={index}>{name}</div>
-//       )}
-//     </div>
-//   )
-// }
+export const allSpeciesFields = gql`
+fragment allSpeciesFields on Species {
+  _id
+  name
+  slug
+  scientificName
+  otherCommonNames
+  habit
+  taxon
+  imageUrl
+  habit
+  native
+  flowers
+  flower_time
+  fruit
+  fruit_time
+  soil
+  ph
+  tolerates
+  createdAt
+  creatorId
+  description
+  uses
+  
+}
+`
+export const SpeciesDetailQuery = gql`
+  query species($slug: String!) {
+    species(slug: $slug) {
+      ...allSpeciesFields
+      plantslist {
+        plantCount
+        variety
+        purchaseDate
+        purchasedFrom
+        location
+      }
+    }
+  }
+  ${allSpeciesFields}
+`
 
 const updateSpecies = async (species, field) => {
-  if (species && species._id) {
+  if (species && species.id) {
     fetch(`/api/species/${species.slug}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: species._id, [field]: species[field] })
+      body: JSON.stringify({ _id: species.id, [field]: species[field] })
     })
   }
 }
+
+const SpeciesDetailMutation = gql`
+  mutation UpdateSpecies($id: ID!, $species: Species!) {
+    updateSpecies(id: $id, species: $species) {
+      ...allSpeciesFields
+    }
+  }
+  ${allSpeciesFields}
+`
+
 const SpeciesDetail = ({ species, children }) => {
   const handleChange = (e) => {
     const field = e.currentTarget.id
@@ -72,53 +115,57 @@ const SpeciesDetail = ({ species, children }) => {
       <SpeciesItem id='tolerates' tag='dd' />
     </dl>
   return (
-    <div className='max-w-full px-2 py-2 my-2 bg-white rounded-lg shadow-md '>
-      <div className='border-b-2 flex flex-row max-w-full'>
-        <h1>
-          <SpeciesItem id='name' />
-          <SpeciesItem id='scientificName' className='ml-2 italic font-serif text-lg text-gray-800' />
-        </h1>
-        <div className='ml-auto mr-2 mt-2'>{children}</div>
-      </div>
-      <div className='text-gray-600 '>
+    <>
+      <div className='panel'>
+        <div className='border-b-2 flex flex-row max-w-full'>
+          <h1>
+            <SpeciesItem id='name' />
+            <SpeciesItem id='scientificName' className='ml-2 italic font-serif text-lg text-gray-800' />
+          </h1>
+          <div className='ml-auto mr-2 mt-2'>{children}</div>
+        </div>
+        <div className='text-gray-600 '>
         Common Names:
-        <SpeciesItem id='otherCommonNames' className='ml-2' />
+          <SpeciesItem id='otherCommonNames' className='ml-2' />
+        </div>
+
+        <div className='flex flex-wrap-reverse  md:flex-no-wrap flex-row'>
+          <SpeciesItem id='description' tag='section' className='w-2/3 mt-4 md:mt-0' />
+          <img className='w-1/3  object-cover sm:ml-2' src={species.imageUrl} />
+        </div>
+
+        <div className='flex flex-row mt-2'>
+          <Tabs className='w-2/3'>
+            <TabList>
+              <Tab>Notes</Tab>
+              <Tab>Planting</Tab>
+              <Tab>Maintenance</Tab>
+              <Tab>Uses</Tab>
+            </TabList>
+
+            <TabPanel>
+              <SpeciesItem id='notes' tag='section' className='mt-4 md:mt-0 prose' />
+            </TabPanel>
+            <TabPanel>
+              <SpeciesItem id='planting' tag='section' className='mt-4 md:mt-0 prose' />
+            </TabPanel>
+            <TabPanel>
+              <SpeciesItem id='maintenance' tag='section' className='mt-4 md:mt-0 prose' />
+            </TabPanel>
+            <TabPanel>
+              <SpeciesItem id='uses' tag='section' className='mt-4 md:mt-0 prose' />
+            </TabPanel>
+          </Tabs>
+          <SpeciesProps />
+        </div>
+        <a href={`https://www.wikiwand.com/en/${species.scientificName}`}>
+          {species.scientificName} on Wikipedia
+        </a>
+        <Tags tags={species.tags} />
       </div>
 
-      <div className='flex flex-wrap-reverse  md:flex-no-wrap flex-row'>
-        <SpeciesItem id='description' tag='section' className='w-2/3 mt-4 md:mt-0' />
-        <img className='w-1/3  object-cover sm:ml-2' src={species.imageUrl} />
-      </div>
-
-      <div className='flex flex-row mt-2'>
-        <Tabs className='w-2/3'>
-          <TabList>
-            <Tab>Notes</Tab>
-            <Tab>Planting</Tab>
-            <Tab>Maintenance</Tab>
-            <Tab>Uses</Tab>
-          </TabList>
-
-          <TabPanel>
-            <SpeciesItem id='notes' tag='section' className='mt-4 md:mt-0 prose' />
-          </TabPanel>
-          <TabPanel>
-            <SpeciesItem id='planting' tag='section' className='mt-4 md:mt-0 prose' />
-          </TabPanel>
-          <TabPanel>
-            <SpeciesItem id='maintenance' tag='section' className='mt-4 md:mt-0 prose' />
-          </TabPanel>
-          <TabPanel>
-            <SpeciesItem id='uses' tag='section' className='mt-4 md:mt-0 prose' />
-          </TabPanel>
-        </Tabs>
-        <SpeciesProps />
-      </div>
-      <a href={`https://www.wikiwand.com/en/${species.scientificName}`} >
-        {species.scientificName} on Wikipedia
-      </a>
-      <Tags tags={species.tags} />
-    </div>
+      <PlantTable plants={species.plantslist} omitspecies />
+    </>
   )
 }
 export default SpeciesDetail

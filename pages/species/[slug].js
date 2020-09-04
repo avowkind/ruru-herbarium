@@ -1,30 +1,38 @@
 import React, { useState } from 'react'
-import useSWR from 'swr'
-import fetcher from '../../lib/fetch'
-import config from '../../lib/config'
+import { withApollo } from '../../apollo/client'
+import gql from 'graphql-tag'
+
 import { useRouter } from 'next/router'
-import SpeciesDetail from '../../components/species/SpeciesDetail'
+import { useQuery } from '@apollo/react-hooks'
+
+import SpeciesDetail, { SpeciesDetailQuery } from '../../components/species/SpeciesDetail'
 import SpeciesEditor from '../../components/species/SpeciesEditor'
 
-export default function () {
+function SpeciesDetailPage() {
   const [edit, setEdit] = useState(false)
   const router = useRouter()
   const { slug } = router.query
+  const { loading, error, data } 
+    = useQuery(SpeciesDetailQuery, {
+    variables: { slug },
+  })
 
-  const { data, error, mutate } = useSWR(`${config.HOST}/api/species/${slug}`, fetcher)
+  if (loading) return 'loading species...'
+  if (error) return <p className='panel-error'>Failed to load species</p>
+  console.log(data)
   const handleSave = () => {
     setEdit(false)
     mutate()
   }
   return (
     <>
-      {error && <p className='panel-error'>Failed to load species</p>}
       {edit
-        ? <SpeciesEditor species={data} onSave={handleSave} />
+        ? <SpeciesEditor species={data.species} onSave={handleSave} />
         : data &&
-          <SpeciesDetail species={data}>
+          <SpeciesDetail species={data.species}>
             <button className='btn-primary' onClick={() => setEdit(true)}>Edit</button>
           </SpeciesDetail>}
     </>
   )
 }
+export default withApollo(SpeciesDetailPage)

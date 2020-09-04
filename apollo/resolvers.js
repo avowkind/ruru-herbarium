@@ -1,17 +1,25 @@
 import {
   GraphQLDate
 } from 'graphql-iso-date'
+import { specieslist, getSpecies, speciesForPlant, updateSpecies } from '../model/species'
+import { plantslist, plant, plantsForSpecies } from '../model/plants'
 
 export const resolvers = {
   Date: GraphQLDate,
   Query: {
-    async species (_parent, _args, _context, _info) {
-      console.log('resolving species', _info.fieldNodes[0].selectionSet.selections[1].name)
-      const species = await _context.db
-        .collection('species')
-        .find({})
-        .toArray()
-      return species
-    }
+    specieslist,
+    species: getSpecies,
+    plantslist,
+    plant
+  },
+  Mutation: {
+    createSpecies: updateSpecies,
+    updateSpecies: updateSpecies
+  },
+  Plant: {
+    species: speciesForPlant
+  },
+  Species: {
+    plantslist: plantsForSpecies
   }
 }

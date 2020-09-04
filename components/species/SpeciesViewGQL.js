@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 const SpeciesQuery = gql`
   query Species {
-    species {
+    specieslist {
       _id
       name
       slug
@@ -23,7 +23,7 @@ export default function SpeciesView () {
   console.log('data', data)
   return (
     <>
-      {data && <SpeciesTable species={data.species} />}
+      {data && <SpeciesTable species={data.specieslist} />}
     </>
   )
 }
