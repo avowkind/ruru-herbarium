@@ -4,6 +4,7 @@ import ContentEditable from 'react-contenteditable'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import gql from 'graphql-tag'
 import PlantTable from '../plants/PlantTable'
+import { useMutation } from '@apollo/client'
 
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
@@ -30,8 +31,10 @@ fragment allSpeciesFields on Species {
   createdAt
   creatorId
   description
+  notes
+  planting
+  maintenance
   uses
-  
 }
 `
 export const SpeciesDetailQuery = gql`
@@ -50,19 +53,9 @@ export const SpeciesDetailQuery = gql`
   ${allSpeciesFields}
 `
 
-const updateSpecies = async (species, field) => {
-  if (species && species.id) {
-    fetch(`/api/species/${species.slug}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: species.id, [field]: species[field] })
-    })
-  }
-}
-
-const SpeciesDetailMutation = gql`
-  mutation UpdateSpecies($id: ID!, $species: Species!) {
-    updateSpecies(id: $id, species: $species) {
+export const SpeciesMutate = gql`
+  mutation species($species: newSpecies!) {
+    updateSpecies(species: $species) {
       ...allSpeciesFields
     }
   }
@@ -70,11 +63,28 @@ const SpeciesDetailMutation = gql`
 `
 
 const SpeciesDetail = ({ species, children }) => {
+  const [speciesMutate, { data }] = useMutation(SpeciesMutate)
+
   const handleChange = (e) => {
     const field = e.currentTarget.id
     console.log('input', field)
     species[field] = e.target.value
-    // updateSpecies(species, field)
+  }
+  const updateSpecies = async (species, field) => {
+    if (species && species._id) {
+      console.log('speciesMutate field', field, species)
+      const res = await speciesMutate(
+        {
+          variables: {
+            species: {
+              _id: species._id,
+              [field]: species[field]
+            }
+          }
+        }
+      )
+      console.log(res)
+    }
   }
   const handleBlur = (e) => {
     const field = e.currentTarget.id

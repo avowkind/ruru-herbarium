@@ -9,6 +9,7 @@ export const resolvers = {
   Query: {
     specieslist,
     species: getSpecies,
+    speciesByID: getSpecies,
     plantslist,
     plant
   },

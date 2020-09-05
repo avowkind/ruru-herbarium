@@ -33,10 +33,14 @@ export const typeDefs = gql`
     createdAt: Date
     creatorId: String
     description: String
+    notes: String
+    planting: String
+    maintenance: String
     uses: String
     plantslist: [Plant]
   }
   input newSpecies {
+    _id: ID
     name: String
     slug: String
     otherCommonNames: String
@@ -55,14 +59,18 @@ export const typeDefs = gql`
     createdAt: Date
     creatorId: String
     description: String
+    notes: String
+    planting: String
+    maintenance: String
     uses: String
   }
 
   type Query {
     specieslist: [Species]!
     species(slug: String!): Species
+    speciesByID(_id: ID!): Species
     plantslist: [Plant]!
-    plant(id: ID!): Plant
+    plant(_id: ID!): Plant
   }
 
   type Mutation {

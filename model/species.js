@@ -34,7 +34,7 @@ export async function updateSpecies (_parent, args, context, _info) {
 
   if (!species) return null
 
-  const _id = species._id
+  let _id = species._id
   delete species._id
   try {
     const doc = await context.db
@@ -48,8 +48,9 @@ export async function updateSpecies (_parent, args, context, _info) {
         },
         { upsert: true }
       )
-    console.log('created', doc.upsertedId._id)
-    return getSpecies(_parent, { _id: doc.upsertedId._id }, context, _info)
+    console.log('created', doc)
+    _id = _id || doc.upsertedId._id
+    return getSpecies(_parent, { _id: ObjectID(_id) }, context, _info)
   } catch (e) {
     console.log('error', e)
     return null
