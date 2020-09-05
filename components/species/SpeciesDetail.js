@@ -67,13 +67,12 @@ const SpeciesDetail = ({ species, children }) => {
 
   const handleChange = (e) => {
     const field = e.currentTarget.id
-    console.log('input', field)
+    // console.log('input', field)
     species[field] = e.target.value
   }
   const updateSpecies = async (species, field) => {
     if (species && species._id) {
-      console.log('speciesMutate field', field, species)
-      const res = await speciesMutate(
+      return speciesMutate(
         {
           variables: {
             species: {
@@ -83,12 +82,10 @@ const SpeciesDetail = ({ species, children }) => {
           }
         }
       )
-      console.log(res)
     }
   }
   const handleBlur = (e) => {
     const field = e.currentTarget.id
-    console.log('blur', field, e.currentTarget)
     species[field] = e.currentTarget.innerHTML
     updateSpecies(species, field)
   }

@@ -12,17 +12,17 @@ function SpeciesDetailPage() {
   const [edit, setEdit] = useState(false)
   const router = useRouter()
   const { slug } = router.query
-  const { loading, error, data } 
+  const { loading, error, data, refetch } 
     = useQuery(SpeciesDetailQuery, {
     variables: { slug },
   })
 
   if (loading) return 'loading species...'
   if (error) return <p className='panel-error'>Failed to load species</p>
-  console.log(data)
+  // console.log(data)
   const handleSave = () => {
     setEdit(false)
-    mutate()
+    refetch()
   }
   return (
     <>

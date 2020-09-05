@@ -13,8 +13,10 @@ function SpeciesPage () {
       >
         New Species
       </button>
-      {newSpecies && <SpeciesEditor onSave={() => setNewSpecies(false)} />}
-      <SpeciesView />
+      {newSpecies
+        ? <SpeciesEditor onSave={() => setNewSpecies(false)} />
+        : <SpeciesView changed={newSpecies} />}
+
     </>
   )
 }

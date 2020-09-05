@@ -15,12 +15,12 @@ const SpeciesQuery = gql`
   }
 `
 
-export default function SpeciesView () {
-  const { loading, error, data } = useQuery(SpeciesQuery)
+export default function SpeciesView ({ changed }) {
+  const { loading, error, data, refetch } = useQuery(SpeciesQuery)
 
   if (loading) return 'loading species...'
   if (error) return <p className='panel-error'>Failed to load species</p>
-  console.log('data', data)
+  if (changed) refetch()
   return (
     <>
       {data && <SpeciesTable species={data.specieslist} />}

@@ -3,25 +3,15 @@ import { useCurrentUser } from '../../lib/hooks'
 import { useForm } from 'react-hook-form'
 // import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import slug from 'limax'
-
+import { useMutation } from '@apollo/client'
+import { SpeciesMutate } from './SpeciesDetail'
 export const blankSpecies = [
   {
     name: '', // common english name
     otherCommonNames: '', // maori name
     scientificName: '', // genus, species, varietal
     taxon: '', // family, group etc.
-    description: '', // longer description
-    morphology: '', // ( tree, bush, etc)
-    native: '', //  ( native, heirloom, introduced, exotic )
-    medicinal_uses: '',
-    material_users: '',
-    other_uses: '',
-    // option lists
-    soils: [], //
-    sun: [],
-    pollination: [],
-    tags: [],
-    links: [] // list of references
+    description: '' // longer description
   }
 ]
 
@@ -47,9 +37,9 @@ export const blankSpecies = [
 // }
 
 export default function SpeciesEditor ({ species, onSave }) {
-  console.log('species editor', species)
   const [user] = useCurrentUser()
   const [msg, setMsg] = useState(null)
+  const [speciesMutate, { data }] = useMutation(SpeciesMutate)
   const sp = { ...species }
   delete sp.imageUrl
   const { register, handleSubmit, errors } = useForm(
@@ -66,27 +56,27 @@ export default function SpeciesEditor ({ species, onSave }) {
   }
 
   const onSubmit = async data => {
-    let res
     data.slug = slug(data.name)
-    console.log('onSubmit', data)
-    if (species && species._id) {
-      res = await fetch(`/api/species/${data.slug}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _id: species._id, ...data })
-      })
-    } else {
-      res = await fetch('/api/species', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-    }
-    if (res.ok) {
-      setMsg('New species added')
-      setTimeout(() => setMsg(null), 5000)
-      onSave(data)
-    }
+    const sp = (species && species._id)
+      ? {
+        _id: species._id,
+        ...data
+      }
+      : data
+
+    const res = await speciesMutate(
+      {
+        variables: {
+          species: sp
+        }
+      }
+    )
+
+    // if (res.ok) {
+    setMsg('New species added')
+    setTimeout(() => setMsg(null), 5000)
+    onSave(data)
+    // }
   }
 
   return (

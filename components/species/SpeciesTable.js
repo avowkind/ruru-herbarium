@@ -138,7 +138,6 @@ const SpeciesTable = ({ species }) => {
         <tbody {...getTableBodyProps()}>
           {rows.map(row => {
             prepareRow(row)
-            console.log('row', row)
             return (
               <Link key={row.original._id} href={`/species/${row.original.slug}`}>
                 <tr {...row.getRowProps()}>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import slug from 'limax'
 
 export const Html = ({ children }) =>
-  <div dangerouslySetInnerHTML={{ __html: children }} />
+  { return (children ? <div dangerouslySetInnerHTML={{ __html: children ||  }} /> : '') }
 
 const updatePlant = async (plant, field) => {
   if (plant && plant._id) {

@@ -48,7 +48,7 @@ export async function updateSpecies (_parent, args, context, _info) {
         },
         { upsert: true }
       )
-    console.log('created', doc)
+    // console.log('created', doc)
     _id = _id || doc.upsertedId._id
     return getSpecies(_parent, { _id: ObjectID(_id) }, context, _info)
   } catch (e) {
