@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import slug from 'limax'
 import { useMutation } from '@apollo/client'
 import { SpeciesMutate } from './SpeciesDetail'
+
 export const blankSpecies = [
   {
     name: '', // common english name
@@ -14,27 +15,6 @@ export const blankSpecies = [
     description: '' // longer description
   }
 ]
-
-// function ImgDropzone () {
-//   const onDrop = useCallback(acceptedFiles => {
-//     // Do something with the files
-//     console.log('dropped', acceptedFiles)
-//   }, [])
-//   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
-//   return (
-//     <div
-//       className='h-20 max-w-sm text-center align-middle bg-gray-200 border'
-//       {...getRootProps()}>
-//       <input {...getInputProps()} />
-//       {
-//         isDragActive
-//           ? <p>Drop the files here ...</p>
-//           : <p>Drag 'n' drop some files here, or click to select files</p>
-//       }
-//     </div>
-//   )
-// }
 
 export default function SpeciesEditor ({ species, onSave }) {
   const [user] = useCurrentUser()
@@ -112,15 +92,13 @@ export default function SpeciesEditor ({ species, onSave }) {
           ref={register}
         />
         {/* <input
-            type='file'
-            id='imageUrl'
-            name='imageUrl'
-            onChange={handlePicInput}
-            accept='image/png, image/jpeg'
-            // ref={register}
-          />
-          <ImgDropzone />
-           */}
+          type='file'
+          id='imageUrl'
+          name='imageUrl'
+          onChange={handlePicInput}
+          accept='image/png, image/jpeg'
+        /> */}
+        {/* <ImgDropzone /> */}
 
         <label htmlFor='habit'>Growth Habit</label>
         <div className='inline-block relative w-64'>

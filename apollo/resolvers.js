@@ -1,6 +1,4 @@
-import {
-  GraphQLDate
-} from 'graphql-iso-date'
+import { GraphQLDate } from 'graphql-iso-date'
 import { specieslist, getSpecies, speciesForPlant, updateSpecies } from '../model/species'
 import { plantslist, plant, plantsForSpecies } from '../model/plants'
 

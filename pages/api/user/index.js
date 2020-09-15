@@ -26,7 +26,7 @@ handler.get(async (req, res) => res.json({ user: extractUser(req) }))
 
 handler.patch(upload.single('profilePicture'), async (req, res) => {
   if (!req.user) {
-    req.status(401).end()
+    res.status(401).end()
     return
   }
   let profilePicture

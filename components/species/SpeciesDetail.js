@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import gql from 'graphql-tag'
 import PlantTable from '../plants/PlantTable'
 import { useMutation } from '@apollo/client'
-
+import ImgDrop from '../ImgDrop'
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
 
@@ -62,7 +62,7 @@ export const SpeciesMutate = gql`
   ${allSpeciesFields}
 `
 
-const SpeciesDetail = ({ species, children }) => {
+const SpeciesDetail = ({ species, children, onChange }) => {
   const [speciesMutate, { data }] = useMutation(SpeciesMutate)
 
   const handleChange = (e) => {
@@ -89,7 +89,9 @@ const SpeciesDetail = ({ species, children }) => {
     species[field] = e.currentTarget.innerHTML
     updateSpecies(species, field)
   }
-
+  const handleNewPicture = () => {
+    onChange()
+  }
   const SpeciesItem = ({ tag, id, className }) =>
     <ContentEditable
       id={id}
@@ -138,7 +140,15 @@ const SpeciesDetail = ({ species, children }) => {
 
         <div className='flex flex-wrap-reverse  md:flex-no-wrap flex-row'>
           <SpeciesItem id='description' tag='section' className='w-2/3 mt-4 md:mt-0' />
-          <img className='w-1/3  object-cover sm:ml-2' src={species.imageUrl} />
+          <div className='relative w-1/3  sm:ml-2'>
+            <ImgDrop
+              collection='species'
+              _id={species._id}
+              onChange={onChange}
+              className='absolute top-0 left-0'
+            />
+            <img className='object-cover' src={species.imageUrl} />
+          </div>
         </div>
 
         <div className='flex flex-row mt-2'>

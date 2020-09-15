@@ -29,7 +29,7 @@ function SpeciesDetailPage() {
       {edit
         ? <SpeciesEditor species={data.species} onSave={handleSave} />
         : data &&
-          <SpeciesDetail species={data.species}>
+          <SpeciesDetail onChange={refetch} species={data.species}>
             <button className='btn-primary' onClick={() => setEdit(true)}>Edit</button>
           </SpeciesDetail>}
     </>

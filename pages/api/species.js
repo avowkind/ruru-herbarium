@@ -50,7 +50,7 @@ handler.post(async (req, res) => {
 
 handler.patch(upload.single('imageUrl'), async (req, res) => {
   if (!req.user) {
-    req.status(401).end()
+    res.status(401).end()
     return
   }
   let imageUrl
