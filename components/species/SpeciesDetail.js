@@ -5,7 +5,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import gql from 'graphql-tag'
 import PlantTable from '../plants/PlantTable'
 import { useMutation } from '@apollo/client'
-import ImgDrop from '../ImgDrop'
+import ImgDrop from '../pictures/ImgDrop'
+import { Picture } from '../pictures/picture'
+
 export const Html = ({ children }) =>
   <div dangerouslySetInnerHTML={{ __html: children }} />
 
@@ -42,6 +44,7 @@ export const SpeciesDetailQuery = gql`
     species(slug: $slug) {
       ...allSpeciesFields
       plantslist {
+        _id
         plantCount
         variety
         purchaseDate
@@ -147,7 +150,8 @@ const SpeciesDetail = ({ species, children, onChange }) => {
               onChange={onChange}
               className='absolute top-0 left-0'
             />
-            <img className='object-cover' src={species.imageUrl} />
+            {/* <img className='object-cover' src={species.imageUrl} /> */}
+            <Picture slug={species.slug} />
           </div>
         </div>
 

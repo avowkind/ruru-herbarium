@@ -23,7 +23,7 @@ function Header ({ user, mutate }) {
     mutate(null)
   }
   return (
-    <header className='bg-orange-300 sticky top-0'>
+    <header className='bg-orange-300 z-10 shadow sticky top-0'>
       <nav className='container mx-auto flex items-center justify-between flex-wrap  py-2 '>
         <Link href='/'>
           <div id='Brand' className='text-3xl text-black-700'>

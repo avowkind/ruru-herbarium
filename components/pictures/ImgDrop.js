@@ -33,7 +33,7 @@ const ImgDrop = ({ collection, _id, onChange }) => {
       maxFiles={1}
       multiple={false}
       canCancel={false}
-      inputContent='Drop an image'
+      inputContent='Click or drop an image'
       accept='image/*,audio/*,video/*'
     />
   )

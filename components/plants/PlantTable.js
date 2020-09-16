@@ -81,7 +81,7 @@ const PlantTable = ({ plants, omitspecies }) => {
     {
       columns,
       data: plants,
-      // defaultColumn, // Be sure to pass the defaultColumn option
+      defaultColumn: 'purchaseDate', // Be sure to pass the defaultColumn option
       filterTypes
     },
     // useFilters, // useFilters!

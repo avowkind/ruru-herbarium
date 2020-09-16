@@ -4,9 +4,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import Link from 'next/link'
 import slug from 'limax'
 
-export const Html = ({ children }) =>
-  { return (children ? <div dangerouslySetInnerHTML={{ __html: children ||  }} /> : '') }
-
 const updatePlant = async (plant, field) => {
   if (plant && plant._id) {
     fetch(`/api/plants/${plant._id}`, {
@@ -58,10 +55,10 @@ const PlantDetail = ({ plant, children }) => {
       <div className='border-b-2 flex flex-row max-w-full'>
         <Link href={`/species/${slug(plant.species)}`}>
           <h1>
-            {plant.plantCount}{" "} 
-            <PlantItem id='species' />{" "} 
-            {plant.variety && <span className='ml-2 italic font-serif text-lg text-gray-800'>(var: <PlantItem id='variety' />)</span> }
-            {" - "}<PlantItem id='purchaseDate' tag='span' />
+            {plant.plantCount}{' '}
+            <PlantItem id='species' />{' '}
+            {plant.variety && <span className='ml-2 italic font-serif text-lg text-gray-800'>(var: <PlantItem id='variety' />)</span>}
+            {' - '}<PlantItem id='purchaseDate' tag='span' />
           </h1>
         </Link>
         <div className='ml-auto mr-2 mt-2'>{children}</div>
