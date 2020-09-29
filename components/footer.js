@@ -1,6 +1,6 @@
 
 export const Footer = () =>
-  <footer className='bg-orange-300 .inset-x-0.bottom-0'>
+  <footer className='.inset-x-0.bottom-0'>
     <div className='container mx-auto flex items-center justify-between flex-wrap  py-2 '>
       <span>
     Coded by

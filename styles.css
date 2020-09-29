@@ -4,6 +4,11 @@
 body {
   @apply bg-gray-100;
 }
+footer,
+header {
+  background-color: rgb(62,93,88)
+}
+
 h1 {
   @apply text-3xl font-thin leading-loose;
 }

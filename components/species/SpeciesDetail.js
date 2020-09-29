@@ -8,8 +8,8 @@ import { useMutation } from '@apollo/client'
 import ImgDrop from '../pictures/ImgDrop'
 import { Picture } from '../pictures/picture'
 
-export const Html = ({ children }) =>
-  <div dangerouslySetInnerHTML={{ __html: children }} />
+// export const Html = ({ children }) =>
+//   <div dangerouslySetInnerHTML={{ __html: children }} />
 
 export const allSpeciesFields = gql`
 fragment allSpeciesFields on Species {

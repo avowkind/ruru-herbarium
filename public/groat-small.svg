@@ -1,0 +1,157 @@
+
+<svg height="95%" version="1.1" width="95%" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="visible"
+  viewBox="-105 -105 210 210" preserveAspectRatio="xMinYMin meet" >
+
+  <style type="text/css" >
+               <![CDATA[
+                   path {
+                       stroke: #606060;
+                       fill:   none;
+                       stroke-linecap: round;
+                   }
+                   .cross {
+                       stroke: #606060;
+                       /* fill:   rgb(246, 238, 231);*/
+                       fill:   #809080;
+                       stroke-linecap: round;
+                   }
+                   rect.cross {
+                       stroke: none;
+                       fill:   #809080;
+                   }
+                   text.groat {
+                       stroke: #606060;
+                       fill:   #809080;
+                       stroke-linecap: round;
+                   }
+                   ellipse.dot {
+                       stroke: #606060;
+                       /* fill:   rgb(246, 238, 231);*/
+                       fill:   #809080;
+                       stroke-linecap: round;
+                   }
+                   circle.coin {
+                       stroke: #204020;
+                       fill:   #f8F8F0;
+                   }
+                   circle.dot {
+                       stroke: #606060;
+                       fill:   #809080;
+                   }
+                   circle#dot {
+                       stroke: #404040;
+                       fill:   rgb(200,200,200);
+                   }
+               ]]>
+           </style>
+<defs>
+  <symbol id="dot" overflow="visible">
+    <ellipse class="dot" cx="50" cy="0" rx="2" ry="1.5"   />
+  </symbol>
+
+  <symbol id="dot2" overflow="visible">
+    <ellipse class="dot" cx="75" cy="0" rx="2" ry="1.5"   />
+  </symbol>
+
+  <symbol id="bigdot" overflow="visible">
+    <circle class="dot" cx="0" cy="0" r="5" ></circle>
+  </symbol>
+
+  <symbol id="bigdot2" overflow="visible">
+    <circle class="dot" cx="62" cy="0" r="5" ></circle>
+  </symbol>
+
+  <symbol id="dots" overflow="visible">
+  <g>
+    <use xlink:href="#dot" transform="rotate(6)" />
+    <use xlink:href="#dot" transform="rotate(12)" />
+    <use xlink:href="#dot" transform="rotate(18)" />
+    <use xlink:href="#dot" transform="rotate(24)" />
+    <use xlink:href="#dot" transform="rotate(30)" />
+    <use xlink:href="#dot" transform="rotate(36)" />
+    <use xlink:href="#dot" transform="rotate(42)" />
+    <use xlink:href="#dot" transform="rotate(48)" />
+    <use xlink:href="#dot" transform="rotate(54)" />
+    <use xlink:href="#dot" transform="rotate(60)" />
+    <use xlink:href="#dot" transform="rotate(66)" />
+    <use xlink:href="#dot" transform="rotate(72)" />
+    <use xlink:href="#dot" transform="rotate(78)" />
+    <use xlink:href="#dot" transform="rotate(84)" />
+
+  </g>
+</symbol>
+
+<symbol id="dots2">
+<g>
+
+  <use xlink:href="#dot2" transform="rotate(6)" />
+  <use xlink:href="#dot2" transform="rotate(12)" />
+  <use xlink:href="#dot2" transform="rotate(18)" />
+  <use xlink:href="#dot2" transform="rotate(24)" />
+  <use xlink:href="#dot2" transform="rotate(30)" />
+  <use xlink:href="#dot2" transform="rotate(36)" />
+  <use xlink:href="#dot2" transform="rotate(42)" />
+  <use xlink:href="#dot2" transform="rotate(48)" />
+  <use xlink:href="#dot2" transform="rotate(54)" />
+  <use xlink:href="#dot2" transform="rotate(60)" />
+  <use xlink:href="#dot2" transform="rotate(66)" />
+  <use xlink:href="#dot2" transform="rotate(72)" />
+  <use xlink:href="#dot2" transform="rotate(78)" />
+  <use xlink:href="#dot2" transform="rotate(84)" />
+
+</g>
+</symbol>
+ <!-- Quarter Coin - Penny  -->
+ <symbol id="qtr">
+
+   <path d="M50 2 A 50 50 0 0 1 2 50" /> <!-- inner circle -->
+   <path d="M75 2 A 75 75 0 0 1 2 75" /> <!-- outer circle -->
+   <use xlink:href="#dots" x="0" y="0" />
+   <use xlink:href="#dots2" x="0" y="0" transform="rotate(-1.5)" />
+   <use xlink:href="#dots2" x="0" y="0" transform="rotate(1.5)" />
+   <rect class="cross" x="0" y="0" width="97" height="2"/>
+   <rect class="cross" x="0" y="0" width="2" height="97"/>
+   <path class="cross" d="M2 2 H 75   a 25 25  0 0 1 22 22 V 0 "  />
+   <path class="cross" d="M2 2 V 75   a 25 25  0 0 0 22 22 H 0 "  />
+
+   <use xlink:href="#bigdot" x="16" y="16" />
+   <use xlink:href="#bigdot" x="33" y="20" />
+   <use xlink:href="#bigdot" x="20" y="33" />
+   <!-- middle circle -->
+   <use xlink:href="#bigdot2"  x="0" y="0"  transform="rotate(15)" />
+   <use xlink:href="#bigdot2"  x="0" y="0"  transform="rotate(35)" />
+   <use xlink:href="#bigdot2"  x="0" y="0"  transform="rotate(55)" />
+   <use xlink:href="#bigdot2"  x="0" y="0"  transform="rotate(75)" />
+
+ </symbol>
+
+ <path id="innertop" d="M-55 0 a 1 1 0 0 1 110 0 " transform="rotate(14)"/>
+ <path id="innerbottom" d="M55 0 a 1 1 0 0 1 -110 0 " transform="rotate(5)"/>
+<path id="outertop" d="M-80 0 a 1 1 0 0 1 160 0 " transform="rotate(8)"/>
+<path id="outerbottom" d="M82 0 a 1 1 0 0 1  -164 0 " transform="rotate(11)"/>
+</defs>
+<circle class="coin" cx="0" cy="0" r="100"   stroke-width="2"></circle>
+
+<use xlink:href="#qtr" x="0" y="0" transform="rotate(0)"/>
+<use xlink:href="#qtr" x="0" y="0" transform="rotate(90)"/>
+<use xlink:href="#qtr" x="0" y="0" transform="rotate(180)"/>
+<use xlink:href="#qtr" x="0" y="0" transform="rotate(270)"/>
+
+
+<text font-family="Lucida Blackletter" font-size="20"
+  class="groat"  stroke-width="1">
+  <textPath xlink:href="#outertop" textLength="90%">
+
+  </textPath>
+</text>
+<text font-family="Lucida Blackletter" font-size="16"
+  class="groat"  stroke-width="1">
+  <textPath xlink:href="#outerbottom" textLength="114%">
+
+  </textPath>
+</text>
+
+
+</svg>
