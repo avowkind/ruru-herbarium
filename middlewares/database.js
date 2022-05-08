@@ -15,10 +15,12 @@ export async function setUpDb (db) {
 }
 
 export default async function database (req, res, next) {
-  if (!client.isConnected()) {
-    console.log('database.js connecting')
-
+  console.log('database.js connecting')
+  try {
     await client.connect()
+  } catch (err) {
+    console.log('database.js error', err)
+    return next(err)
   }
   req.dbClient = client
   req.db = client.db(process.env.DB_NAME)
